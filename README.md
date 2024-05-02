@@ -1,2 +1,4 @@
 # FQL
-Festival SQL project for school
+Festival SQL project for school 
+
+DBMS: postgresql
