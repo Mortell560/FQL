@@ -1,2 +1,12 @@
 INSERT INTO Sport VALUES (1, 'Basketball');
 INSERT INTO Sport VALUES (2, 'Handball');
+INSERT INTO Sport VALUES (3, 'Football');
+INSERT INTO Sport VALUES (4, 'Lancer de troncs d''arbres');
+INSERT INTO Sport VALUES (5, 'Porter de femme');
+INSERT INTO Sport VALUES (6, 'Course d''orientation en sac');
+INSERT INTO Sport VALUES (7, 'Breakdance');
+INSERT INTO Sport VALUES (8, 'Hockey sur Gazon');
+INSERT INTO Sport VALUES (9, 'Pétanque');
+INSERT INTO Sport VALUES (10, 'Molkky');
+INSERT INTO Sport VALUES (11, 'Tennis de table');
+INSERT INTO Sport VALUES (12, 'Judo');
