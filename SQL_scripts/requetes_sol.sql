@@ -82,5 +82,5 @@ JOIN Personne AS p ON p.NumPersonne=r.NumPersonne
 JOIN Competition AS c ON c.NumCompetition=r.NumCompetition
 JOIN SportCompetition AS sc ON sc.NumCompetition=r.NumCompetition
 JOIN SportGymnase AS sg ON sg.NumSport=sc.NumSport
-WHERE bArbitre=1 OR bOrga=1 AND NumGymnase=123;
+WHERE r.bArbitre=1 OR r.bOrga=1 AND r.NumGymnase=123 AND sc.NumSport=115458;
 
