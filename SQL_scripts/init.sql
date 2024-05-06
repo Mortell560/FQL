@@ -1,9 +1,19 @@
 -- On retire toutes les tables si elles existent deja
 -- Marche en postgresql uniquement
-DROP SCHEMA public CASCADE;
-CREATE SCHEMA public;
-GRANT ALL ON SCHEMA public TO postgres;
-GRANT ALL ON SCHEMA public TO public;
+--DROP SCHEMA public CASCADE;
+--CREATE SCHEMA public;
+--GRANT ALL ON SCHEMA public TO postgres;
+--GRANT ALL ON SCHEMA public TO public;
+
+DROP TABLE Spectateur CASCADE;
+DROP TABLE SportGymnase CASCADE;
+DROP TABLE SportCompetition CASCADE;
+DROP TABLE Competition CASCADE;
+DROP TABLE Role CASCADE;
+DROP TABLE Sport CASCADE;
+DROP TABLE Gymnase CASCADE;
+DROP TABLE Personne CASCADE;
+
 
 -- Schema
 
