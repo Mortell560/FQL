@@ -1,1 +1,1 @@
-INSERT INTO Spectateur VALUES (1,1); -- placeholder
+INSERT INTO Spectateur VALUES (1,1); -- placeholder 
