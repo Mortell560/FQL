@@ -74,7 +74,7 @@ CREATE TABLE Spectateur(
   FOREIGN KEY(NumPersonne) REFERENCES Personne(NumPersonne),
   FOREIGN KEY(NumCompetition) REFERENCES Competition(NumCompetition),
   PRIMARY KEY(NumPersonne, NumCompetition)
-;)
+);
 
 
 -- Peut-etre mettre auto increment en fonction des donnees de la prof
