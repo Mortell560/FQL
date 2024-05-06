@@ -1,6 +1,6 @@
-INSERT INTO Personne VALUES (1, 'Laramée', 'Eloise', 1950, '0744493406');
-INSERT INTO Personne VALUES (2, 'Lalonde', 'Paige', 1970, '0615534191');
-INSERT INTO Personne VALUES (3, 'Marquis', 'Arber', 1956, '0793585796');
+INSERT INTO Personne VALUES (1, 'Tison', 'Alexandre', 2004, '0744493406');
+INSERT INTO Personne VALUES (2, 'Bafour', 'Ambre', 2004, '0615534191');
+INSERT INTO Personne VALUES (3, 'Tang', 'Floriane', 2004, '0793585796');
 INSERT INTO Personne VALUES (4, 'Sansouci', 'Cammile', 1949, '0652940559');
 INSERT INTO Personne VALUES (5, 'Beauchemin', 'Fauna', 1969, '0702991012');
 INSERT INTO Personne VALUES (6, 'Vaillancourt', 'Warrane', 1977, '0740946254');
