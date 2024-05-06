@@ -48,14 +48,12 @@ CREATE TABLE Gymnase(
 CREATE TABLE Role (
   NumPersonne BIGINT NOT NULL,
   NumCompetition BIGINT NOT NULL,
-  NumGymnase BIGINT NOT NULL,
   bSportif INT DEFAULT 0 NOT NULL,
   bArbitre INT DEFAULT 0 NOT NULL,
   bOrga INT DEFAULT 0 NOT NULL,
   FOREIGN KEY (NumPersonne) REFERENCES Personne(NumPersonne),
   FOREIGN KEY (NumCompetition) REFERENCES Competition(NumCompetition),
-  FOREIGN KEY(NumGymnase) REFERENCES Gymnase(NumGymnase),
-  PRIMARY KEY(NumPersonne, NumCompetition, NumGymnase)
+  PRIMARY KEY(NumPersonne, NumCompetition)
 );
 
 CREATE TABLE Sport (
@@ -73,9 +71,11 @@ CREATE TABLE SportGymnase (
 CREATE TABLE SportCompetition(
   NumCompetition BIGINT NOT NULL,
   NumSport BIGINT NOT NULL,
+  NumGymnase BIGINT NOT NULL,
   FOREIGN KEY(NumCompetition) REFERENCES Competition(NumCompetition),
   FOREIGN KEY(NumSport) REFERENCES Sport(NumSport),
-  PRIMARY KEY(NumCompetition, NumSport)
+  FOREIGN KEY(NumGymnase) REFERENCES Gymnase(NumGymnase),
+  PRIMARY KEY(NumCompetition, NumSport, NumGymnase)
 );
 
 CREATE TABLE Spectateur(
