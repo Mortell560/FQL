@@ -7,6 +7,6 @@ INSERT INTO Competition VALUES (5, 'Porter de femme', 60, '2024-06-21 08:00:00',
 INSERT INTO Competition VALUES (6, 'Sacathlon', 96, '2024-06-22 08:00:00', 3, 10, 1, 10);
 INSERT INTO Competition VALUES (7, 'Breakdance', 24, '2024-06-23 08:00:00', 2, 10, 3, 5);
 INSERT INTO Competition VALUES (8, 'Hockey sur gazon', 96,'2024-06-25 08:00:00', 3, 20, 2, 10);
-INSERT INTO Competition VALUES (9, 'Pétanque/Molkky', 96, '2024-06-25 08:00:00', 5, 20, 4, 5);
-INSERT INTO Competition VALUES (10, 'Tennis de Table', 40, '2024-06-26 08:00:00', 4, 6, 2, 2);
-INSERT INTO Competition VALUES (11, 'Judo', 36, '2024-06-26 14:00:00', 5, 6, 2, 2);
+INSERT INTO Competition VALUES (9, 'Pétanque/Molkky', 96, '2024-06-25 08:00:00', 1, 20, 4, 5);
+INSERT INTO Competition VALUES (10, 'Tennis de Table', 40, '2024-06-26 08:00:00', 2, 6, 2, 2);
+INSERT INTO Competition VALUES (11, 'Judo', 36, '2024-06-26 14:00:00', 1, 6, 2, 2);
