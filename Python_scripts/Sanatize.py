@@ -39,7 +39,7 @@ def write_as_sql_order(filename, dictio, qte=100, rand=False):
 
 if __name__ == '__main__':
     SQL_OUT = "../SQL_scripts/Personne.sql"
-    CSV_IN = "FakeNameGenerator.com_aa16686f.csv"
+    CSV_IN = "../Data/FakeNameGenerator.com_aa16686f.csv"
     dictio = init_dict(CSV_IN)
     # print(dictio)
     write_as_sql_order(SQL_OUT, dictio, 1000)
