@@ -26,9 +26,7 @@ CREATE TABLE Competition (
   NumChef BIGINT NOT NULL,
   besoin_min_sportifs INT NOT NULL,
   besoin_min_arbitre INT NOT NULL,
-  nb_Max_sportif_par_arbitre INT NOT NULL,
-  FOREIGN KEY (NumChef) REFERENCES Personne(NumPersonne)
-);
+  nb_M
 
 CREATE TABLE Gymnase(
   NumGymnase BIGINT PRIMARY KEY NOT NULL,
@@ -69,6 +67,14 @@ CREATE TABLE SportCompetition(
   FOREIGN KEY(NumSport) REFERENCES Sport(NumSport),
   PRIMARY KEY(NumCompetition, NumSport)
 );
+
+CREATE TABLE Spectateur(
+  NumPersonne BIGINT NOT NULL,
+  NumCompetition BIGINT NOT NULL,
+  FOREIGN KEY(NumPersonne) REFERENCES Personne(NumPersonne),
+  FOREIGN KEY(NumCompetition) REFERENCES Competition(NumCompetition),
+  PRIMARY KEY(NumPersonne, NumCompetition)
+;)
 
 
 -- Peut-etre mettre auto increment en fonction des donnees de la prof
