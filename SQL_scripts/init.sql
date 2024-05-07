@@ -47,6 +47,11 @@ CREATE TABLE Gymnase(
   capaciteMaxGymnase INT NOT NULL
 );
 
+CREATE TABLE Sport (
+  NumSport BIGINT PRIMARY KEY NOT NULL,
+  NomSport TEXT
+);
+
 CREATE TABLE Role (
   NumPersonne BIGINT NOT NULL,
   NumCompetition BIGINT NOT NULL,
@@ -58,11 +63,6 @@ CREATE TABLE Role (
   FOREIGN KEY (NumCompetition) REFERENCES Competition(NumCompetition),
   FOREIGN KEY(NumSport) REFERENCES Sport(NumSport),
   PRIMARY KEY(NumPersonne, NumCompetition)
-);
-
-CREATE TABLE Sport (
-  NumSport BIGINT PRIMARY KEY NOT NULL,
-  NomSport TEXT
 );
 
 CREATE TABLE SportGymnase (
