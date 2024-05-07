@@ -66,10 +66,11 @@ CREATE TABLE Sport (
 );
 
 CREATE TABLE SportGymnase (
-  NumGymnase BIGINT PRIMARY KEY NOT NULL,
+  NumGymnase BIGINT NOT NULL,
   NumSport BIGINT NOT NULL,
   FOREIGN KEY(NumGymnase) REFERENCES Gymnase(NumGymnase),
-  FOREIGN KEY(NumSport) REFERENCES Sport(NumSport)
+  FOREIGN KEY(NumSport) REFERENCES Sport(NumSport),
+  PRIMARY KEY(NumGymnase, NumSport)
 );
 
 CREATE TABLE SportCompetition(
