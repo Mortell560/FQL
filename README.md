@@ -8,3 +8,4 @@ Load the schema with
 `\i init.sql`
 
 TODO: Write the rest when it is known and done
+TODO: We won't know the rest until we take the test
