@@ -17,7 +17,7 @@ def init_dict(filename):
     return d
 
 
-def write_as_sql_order(filename, dictio, qte=100, rand=False):
+def write_as_sql_order_personne(filename, dictio, qte=100, rand=False):
     """retourne les requetes d'insertion pour les gens"""
     with open(filename, 'w') as f:
         seen_id = []
@@ -42,4 +42,4 @@ if __name__ == '__main__':
     CSV_IN = "../Data/FakeNameGenerator.com_aa16686f.csv"
     dictio = init_dict(CSV_IN)
     # print(dictio)
-    write_as_sql_order(SQL_OUT, dictio, 1000)
+    write_as_sql_order_personne(SQL_OUT, dictio, 1000)
