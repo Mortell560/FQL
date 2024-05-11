@@ -23,3 +23,6 @@ JOIN Role AS r ON r.NumCompetition = c.NumCompetition
 GROUP BY NumCompetition
 ORDER BY freq; -- A tester
 
+-- Pour export nos resultats de requetes dans des CSV tres jolis (c'est faux c'est pas joli)
+-- On peut tout simplement faire \copy (requete sql) TO 'path_to_file.csv' with CSV HEADER
+-- Pas de de ';' et le fichier est disponible au chemin indique (si vous utiliser un docker faudra faire un docker cp conteneur:/path_to_file.csv .)
