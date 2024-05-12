@@ -22,10 +22,9 @@ INSERT INTO SportCompetition VALUES (18,7,42);
 INSERT INTO SportCompetition VALUES (8,8,14);
 
 INSERT INTO SportCompetition VALUES (9,9,42);
-INSERT INTO SportCompetition VALUES (9,10,42);
+INSERT INTO SportCompetition VALUES (20,10,41);
 
 INSERT INTO SportCompetition VALUES (10,11,42);
-INSERT INTO SportCompetition VALUES (20,11,42);
 
 INSERT INTO SportCompetition VALUES (11,12,41);
 INSERT INTO SportCompetition VALUES (19,12,41);
