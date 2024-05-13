@@ -38,7 +38,7 @@ SELECT COUNT(*)*12*2 AS argent_sortant_arbitre FROM Role
 WHERE bArbitre = 1;
 
 SELECT COUNT(*)*20*2 AS argent_sortant_organisateur FROM Role
-WHERE bOrganisateur = 1;
+WHERE bOrga = 1;
 
 
 
