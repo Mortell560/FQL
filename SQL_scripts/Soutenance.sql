@@ -26,3 +26,35 @@ ORDER BY freq; -- A tester
 -- Pour export nos resultats de requetes dans des CSV tres jolis (c'est faux c'est pas joli)
 -- On peut tout simplement faire \copy (requete sql) TO 'path_to_file.csv' with CSV HEADER
 -- Pas de de ';' et le fichier est disponible au chemin indique (si vous utiliser un docker faudra faire un docker cp conteneur:/path_to_file.csv .)
+
+-- #####################################################################################################################################################
+-- Entrainnement obligatoire
+-- #####################################################################################################################################################
+
+-- infos financières
+SELECT COUNT(*) * 30 AS argent_rentrant FROM Spectateur;
+
+SELECT COUNT(*)*12*2 AS argent_sortant_arbitre FROM Role
+WHERE bArbitre = 1;
+
+SELECT COUNT(*)*20*2 AS argent_sortant_organisateur FROM Role
+WHERE bOrganisateur = 1;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
