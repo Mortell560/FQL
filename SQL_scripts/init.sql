@@ -40,6 +40,14 @@ CREATE TABLE Sport (
   NomSport TEXT
 );
 
+CREATE TABLE SportGymnase (
+  NumGymnase BIGINT NOT NULL,
+  NumSport BIGINT NOT NULL,
+  FOREIGN KEY(NumGymnase) REFERENCES Gymnase(NumGymnase),
+  FOREIGN KEY(NumSport) REFERENCES Sport(NumSport),
+  PRIMARY KEY(NumGymnase, NumSport)
+);
+
 CREATE TABLE Competition (
   NumCompetition BIGINT PRIMARY KEY NOT NULL,
   NomCompetition TEXT NOT NULL,
@@ -52,8 +60,7 @@ CREATE TABLE Competition (
   NumGymnase BIGINT NOT NULL,
   NumSport BIGINT NOT NULL,
   FOREIGN KEY(NumChef) REFERENCES Personne(NumPersonne),
-  FOREIGN KEY(NumGymnase) REFERENCES Gymnase(NumGymnase),
-  FOREIGN KEY(NumSport) REFERENCES Sport(NumSport)
+  FOREIGN KEY(NumGymnase, NumSport) REFERENCES SportGymnase(NumGymnase, NumSport)
 );
 
 CREATE TABLE Role (
@@ -65,14 +72,6 @@ CREATE TABLE Role (
   FOREIGN KEY (NumPersonne) REFERENCES Personne(NumPersonne),
   FOREIGN KEY (NumCompetition) REFERENCES Competition(NumCompetition),
   PRIMARY KEY(NumPersonne, NumCompetition)
-);
-
-CREATE TABLE SportGymnase (
-  NumGymnase BIGINT NOT NULL,
-  NumSport BIGINT NOT NULL,
-  FOREIGN KEY(NumGymnase) REFERENCES Gymnase(NumGymnase),
-  FOREIGN KEY(NumSport) REFERENCES Sport(NumSport),
-  PRIMARY KEY(NumGymnase, NumSport)
 );
 
 CREATE TABLE Spectateur(
