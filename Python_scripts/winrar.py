@@ -17,5 +17,5 @@ def load_db(filenames: list, out: str = "../SQL_scripts/out.sql"):
 
 
 if __name__ == "__main__":
-    filenames = ["../SQL_scripts/init.sql", "../SQL_scripts/Personne.sql", "../SQL_scripts/Sport.sql", "../SQL_scripts/Gymnase.sql", "../SQL_scripts/Competition.sql", "../SQL_scripts/Role.sql", "../SQL_scripts/SportGymnase.sql", "../SQL_scripts/SportCompetition.sql", "../SQL_scripts/Spectateur.sql"]
+    filenames = ["../SQL_scripts/init.sql", "../SQL_scripts/Personne.sql", "../SQL_scripts/Sport.sql", "../SQL_scripts/Gymnase.sql", "../SQL_scripts/SportGymnase.sql", "../SQL_scripts/Competition.sql", "../SQL_scripts/Role.sql", "../SQL_scripts/Spectateur.sql"]
     load_db(filenames)
