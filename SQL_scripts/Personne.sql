@@ -998,3 +998,7 @@ INSERT INTO Personne VALUES (997, 'Grandpré', 'Brie', 1965, '0683555590');
 INSERT INTO Personne VALUES (998, 'Deserres', 'Estelle', 1987, '0721667943');
 INSERT INTO Personne VALUES (999, 'Lapointe', 'Gilles', 1953, '0752215952');
 INSERT INTO Personne VALUES (1000, 'Pelland', 'Ray', 1959, '0755715156');
+INSERT INTO Personne VALUES (1001, 'Bob', 'Mauranne', 1970, '0607080910');
+INSERT INTO Personne VALUES (1002, 'Serge', 'Martinot', 1955, '0666666669');
+INSERT INTO Personne VALUES (1003, 'Serge', 'Martinot', 2001, '0000000000');
+
