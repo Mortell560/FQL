@@ -1,1 +1,49 @@
-INSERT INTO Role VALUES (1,1,1,1,1,1); -- placeholder 
+--compet 1 : 4 arbitres | Places restantes : 88 (le 22/06 à 14h)
+INSERT INTO Role VALUES (1,1,0,1,1);
+INSERT INTO Role VALUES (4,1,0,1,0);
+INSERT INTO Role VALUES (5,1,0,1,0);
+INSERT INTO Role VALUES (8,1,0,1,0);
+
+--compet 2 : 3 arbitres | Places restantes : 117 (le 20/06 à 8h)
+INSERT INTO Role VALUES (2,2,0,1,1);
+INSERT INTO Role VALUES (10,2,0,1,0);
+INSERT INTO Role VALUES (12,2,0,1,0);
+
+--compet 3 : 3 arbitres | Places restantes : 117 (le 24/06 à 14h)
+INSERT INTO Role VALUES (1,3,0,1,1);
+INSERT INTO Role VALUES (14,3,0,1,0);
+INSERT INTO Role VALUES (16,3,0,1,0);
+
+--compet 4 : 1 arbitres | Places restantes : 117 (le 24/06 à 14h)
+
+
+INSERT INTO Role VALUES (1,12,0,1,1);
+INSERT INTO Role VALUES (1,13,0,1,1);
+INSERT INTO Role VALUES (1,21,0,1,1);
+INSERT INTO Role VALUES (1,11,0,1,1);
+
+INSERT INTO Role VALUES (1,17,0,1,1);
+
+
+INSERT INTO Role VALUES (2,14,0,1,1);
+INSERT INTO Role VALUES (2,15,0,1,1);
+INSERT INTO Role VALUES (2,7,0,1,1);
+INSERT INTO Role VALUES (2,18,0,1,1);
+
+
+INSERT INTO Role VALUES (3,16,0,1,1);
+INSERT INTO Role VALUES (3,4,0,1,1);
+INSERT INTO Role VALUES (3,5,0,1,1);
+INSERT INTO Role VALUES (3,6,0,1,1);
+
+INSERT INTO Role VALUES (3,8,0,1,1);
+
+INSERT INTO Role VALUES (1,9,0,1,1);
+INSERT INTO Role VALUES (1,20,0,1,1);
+
+INSERT INTO Role VALUES (2,10,0,1,1);
+
+
+
+INSERT INTO Role VALUES (3,19,0,1,1);
+
