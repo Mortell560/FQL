@@ -1,10 +1,3 @@
---compet 1 : 4 arbitres | 32 sportifs | Places restantes : 56 (le 22/06 à 14h)
-INSERT INTO Role VALUES (1,1,0,1,1);
-
-INSERT INTO Role VALUES (4,1,0,1,0);
-INSERT INTO Role VALUES (5,1,0,1,0);
-INSERT INTO Role VALUES (8,1,0,1,0);
-
 INSERT INTO Role VALUES (983, 1, 1, 0, 0);
 INSERT INTO Role VALUES (843, 1, 1, 0, 0);
 INSERT INTO Role VALUES (134, 1, 1, 0, 0);
@@ -37,12 +30,6 @@ INSERT INTO Role VALUES (70, 1, 1, 0, 0);
 INSERT INTO Role VALUES (150, 1, 1, 0, 0);
 INSERT INTO Role VALUES (704, 1, 1, 0, 0);
 INSERT INTO Role VALUES (558, 1, 1, 0, 0);
-
---compet 2 : 3 arbitres | 40 sportifs | Places restantes : 77 (le 20/06 à 8h)
-INSERT INTO Role VALUES (2,2,0,1,1);
-
-INSERT INTO Role VALUES (10,2,0,1,0);
-INSERT INTO Role VALUES (12,2,0,1,0);
 
 INSERT INTO Role VALUES (536, 2, 1, 0, 0);
 INSERT INTO Role VALUES (212, 2, 1, 0, 0);
@@ -85,12 +72,6 @@ INSERT INTO Role VALUES (290, 2, 1, 0, 0);
 INSERT INTO Role VALUES (181, 2, 1, 0, 0);
 INSERT INTO Role VALUES (120, 2, 1, 0, 0);
 
---compet 3 : 3 arbitres | 24 sportifs | Places restantes : 93 (le 24/06 à 14h)
-INSERT INTO Role VALUES (1,3,0,1,1);
-
-INSERT INTO Role VALUES (14,3,0,1,0);
-INSERT INTO Role VALUES (16,3,0,1,0);
-
 INSERT INTO Role VALUES (805, 3, 1, 0, 0);
 INSERT INTO Role VALUES (549, 3, 1, 0, 0);
 INSERT INTO Role VALUES (396, 3, 1, 0, 0);
@@ -116,17 +97,11 @@ INSERT INTO Role VALUES (638, 3, 1, 0, 0);
 INSERT INTO Role VALUES (305, 3, 1, 0, 0);
 INSERT INTO Role VALUES (116, 3, 1, 0, 0);
 
---compet 4 : 1 arbitres | 5 sportifs | Places restantes : 6 (le 20/06 à 8h)
-INSERT INTO Role VALUES (3,4,0,1,1);
-
 INSERT INTO Role VALUES (733, 4, 1, 0, 0);
 INSERT INTO Role VALUES (371, 4, 1, 0, 0);
 INSERT INTO Role VALUES (816, 4, 1, 0, 0);
 INSERT INTO Role VALUES (611, 4, 1, 0, 0);
 INSERT INTO Role VALUES (468, 4, 1, 0, 0);
-
---compet 5 : 1 arbitres | 10 sportifs | Places restantes : 53 (le 21/06 à 8h)
-INSERT INTO Role VALUES (3,5,0,1,1);
 
 INSERT INTO Role VALUES (878, 5, 1, 0, 0);
 INSERT INTO Role VALUES (143, 5, 1, 0, 0);
@@ -139,20 +114,11 @@ INSERT INTO Role VALUES (795, 5, 1, 0, 0);
 INSERT INTO Role VALUES (375, 5, 1, 0, 0);
 INSERT INTO Role VALUES (73, 5, 1, 0, 0);
 
---compet 6 : 1 arbitres | 5 sportifs | Places restantes : 6 (le 22/06 à 8h)
-INSERT INTO Role VALUES (3,6,0,1,1);
-
 INSERT INTO Role VALUES (915, 6, 1, 0, 0);
 INSERT INTO Role VALUES (934, 6, 1, 0, 0);
 INSERT INTO Role VALUES (263, 6, 1, 0, 0);
 INSERT INTO Role VALUES (656, 6, 1, 0, 0);
 INSERT INTO Role VALUES (291, 6, 1, 0, 0);
-
---compet 7 : 3 arbitres | 10 sportifs | Places restantes : 107  (le 23/06 à 8h)
-INSERT INTO Role VALUES (2,7,0,1,1);
-
-INSERT INTO Role VALUES (18,7,0,1,0);
-INSERT INTO Role VALUES (20,7,0,1,0);
 
 INSERT INTO Role VALUES (179, 7, 1, 0, 0);
 INSERT INTO Role VALUES (711, 7, 1, 0, 0);
@@ -165,29 +131,14 @@ INSERT INTO Role VALUES (357, 7, 1, 0, 0);
 INSERT INTO Role VALUES (298, 7, 1, 0, 0);
 INSERT INTO Role VALUES (629, 7, 1, 0, 0);
 
---compet 8 : 2 arbitres | 2 sportifs | Places restantes : 8  (le 25/06 à 8h)
-INSERT INTO Role VALUES (3,8,0,1,1);
-
-INSERT INTO Role VALUES (21,8,0,1,0);
-
 INSERT INTO Role VALUES (513, 8, 1, 0, 0);
 INSERT INTO Role VALUES (518, 8, 1, 0, 0);
-
---compet 9 : 2 arbitres | 5 sportifs | Places restantes : 113  (le 25/06 à 8h) ATTENTION, DANS LE MÊME GYMNASE + MÊME DATE QUE LA COMPET 20
-INSERT INTO Role VALUES (1,9,0,1,1);
-
-INSERT INTO Role VALUES (22,9,0,1,0);
 
 INSERT INTO Role VALUES (986, 9, 1, 0, 0);
 INSERT INTO Role VALUES (817, 9, 1, 0, 0);
 INSERT INTO Role VALUES (530, 9, 1, 0, 0);
 INSERT INTO Role VALUES (410, 9, 1, 0, 0);
 INSERT INTO Role VALUES (119, 9, 1, 0, 0);
-
---compet 10 : 2 arbitres | 6 sportifs | Places restantes : 112  (le 26/06 à 8h)
-INSERT INTO Role VALUES (2,10,0,1,1);
-
-INSERT INTO Role VALUES (27,10,0,1,0);
 
 INSERT INTO Role VALUES (227, 10, 1, 0, 0);
 INSERT INTO Role VALUES (205, 10, 1, 0, 0);
@@ -196,24 +147,12 @@ INSERT INTO Role VALUES (441, 10, 1, 0, 0);
 INSERT INTO Role VALUES (85, 10, 1, 0, 0);
 INSERT INTO Role VALUES (953, 10, 1, 0, 0);
 
---compet 11 : 2 arbitres | 6 sportifs | Places restantes : 72  (le 26/06 à 14h)
-INSERT INTO Role VALUES (1,11,0,1,1);
-
-INSERT INTO Role VALUES (4,11,0,1,0);
-
 INSERT INTO Role VALUES (353, 11, 1, 0, 0);
 INSERT INTO Role VALUES (690, 11, 1, 0, 0);
 INSERT INTO Role VALUES (336, 11, 1, 0, 0);
 INSERT INTO Role VALUES (293, 11, 1, 0, 0);
 INSERT INTO Role VALUES (781, 11, 1, 0, 0);
 INSERT INTO Role VALUES (621, 11, 1, 0, 0);
-
---compet 12 : 4 arbitres | 32 sportifs | Places restantes : 84  (le 23/06 à 14h)
-INSERT INTO Role VALUES (1,12,0,1,1);
-
-INSERT INTO Role VALUES (5,12,0,1,0);
-INSERT INTO Role VALUES (8,12,0,1,0);
-INSERT INTO Role VALUES (10,12,0,1,0);
 
 INSERT INTO Role VALUES (211, 12, 1, 0, 0);
 INSERT INTO Role VALUES (910, 12, 1, 0, 0);
@@ -248,13 +187,6 @@ INSERT INTO Role VALUES (384, 12, 1, 0, 0);
 INSERT INTO Role VALUES (544, 12, 1, 0, 0);
 INSERT INTO Role VALUES (559, 12, 1, 0, 0);
 
---compet 13 : 4 arbitres | 32 sportifs | Places restantes : 56  (le 24/06 à 14h)
-INSERT INTO Role VALUES (1,13,0,1,1);
-
-INSERT INTO Role VALUES (12,13,0,1,0);
-INSERT INTO Role VALUES (18,13,0,1,0);
-INSERT INTO Role VALUES (20,13,0,1,0);
-
 INSERT INTO Role VALUES (481, 13, 1, 0, 0);
 INSERT INTO Role VALUES (550, 13, 1, 0, 0);
 INSERT INTO Role VALUES (545, 13, 1, 0, 0);
@@ -287,13 +219,6 @@ INSERT INTO Role VALUES (492, 13, 1, 0, 0);
 INSERT INTO Role VALUES (34, 13, 1, 0, 0);
 INSERT INTO Role VALUES (215, 13, 1, 0, 0);
 INSERT INTO Role VALUES (274, 13, 1, 0, 0);
-
---compet 14 : 4 arbitres | 40 sportifs | Places restantes : 76  (le 21/06 à 8h)
-INSERT INTO Role VALUES (2,14,0,1,1);
-
-INSERT INTO Role VALUES (14,14,0,1,0);
-INSERT INTO Role VALUES (16,14,0,1,0);
-INSERT INTO Role VALUES (21,14,0,1,0);
 
 INSERT INTO Role VALUES (538, 14, 1, 0, 0);
 INSERT INTO Role VALUES (244, 14, 1, 0, 0);
@@ -336,13 +261,6 @@ INSERT INTO Role VALUES (819, 14, 1, 0, 0);
 INSERT INTO Role VALUES (287, 14, 1, 0, 0);
 INSERT INTO Role VALUES (714, 14, 1, 0, 0);
 
---compet 15 : 4 arbitres | 40 sportifs | Places restantes : 76  (le 22/06 à 8h)
-INSERT INTO Role VALUES (2,15,0,1,1);
-
-INSERT INTO Role VALUES (22,15,0,1,0);
-INSERT INTO Role VALUES (27,15,0,1,0);
-INSERT INTO Role VALUES (4,15,0,1,0);
-
 INSERT INTO Role VALUES (191, 15, 1, 0, 0);
 INSERT INTO Role VALUES (616, 15, 1, 0, 0);
 INSERT INTO Role VALUES (522, 15, 1, 0, 0);
@@ -384,12 +302,6 @@ INSERT INTO Role VALUES (726, 15, 1, 0, 0);
 INSERT INTO Role VALUES (429, 15, 1, 0, 0);
 INSERT INTO Role VALUES (776, 15, 1, 0, 0);
 
---compet 16 : 3 arbitres | 24 sportifs | Places restantes : 92  (le 25/06 à 14h)
-INSERT INTO Role VALUES (3,16,0,1,1);
-
-INSERT INTO Role VALUES (5,16,0,1,0);
-INSERT INTO Role VALUES (8,16,0,1,0);
-
 INSERT INTO Role VALUES (117, 16, 1, 0, 0);
 INSERT INTO Role VALUES (289, 16, 1, 0, 0);
 INSERT INTO Role VALUES (324, 16, 1, 0, 0);
@@ -414,12 +326,6 @@ INSERT INTO Role VALUES (422, 16, 1, 0, 0);
 INSERT INTO Role VALUES (129, 16, 1, 0, 0);
 INSERT INTO Role VALUES (242, 16, 1, 0, 0);
 INSERT INTO Role VALUES (660, 16, 1, 0, 0);
-
---compet 17 : 3 arbitres | 24 sportifs | Places restantes : 92  (le 26/06 à 14h)
-INSERT INTO Role VALUES (1,17,0,1,1);
-
-INSERT INTO Role VALUES (10,17,0,1,0);
-INSERT INTO Role VALUES (12,17,0,1,0);
 
 INSERT INTO Role VALUES (146, 17, 1, 0, 0);
 INSERT INTO Role VALUES (835, 17, 1, 0, 0);
@@ -446,12 +352,6 @@ INSERT INTO Role VALUES (91, 17, 1, 0, 0);
 INSERT INTO Role VALUES (77, 17, 1, 0, 0);
 INSERT INTO Role VALUES (586, 17, 1, 0, 0);
 
---compet 18 : 3 arbitres | 10 sportifs | Places restantes : 107  (le 24/06 à 8h)
-INSERT INTO Role VALUES (2,18,0,1,1);
-
-INSERT INTO Role VALUES (14,18,0,1,0);
-INSERT INTO Role VALUES (16,18,0,1,0);
-
 INSERT INTO Role VALUES (485, 18, 1, 0, 0);
 INSERT INTO Role VALUES (52, 18, 1, 0, 0);
 INSERT INTO Role VALUES (556, 18, 1, 0, 0);
@@ -463,11 +363,6 @@ INSERT INTO Role VALUES (198, 18, 1, 0, 0);
 INSERT INTO Role VALUES (647, 18, 1, 0, 0);
 INSERT INTO Role VALUES (462, 18, 1, 0, 0);
 
---compet 19 : 2 arbitres | 6 sportifs | Places restantes : 72  (le 26/06 à 8h)
-INSERT INTO Role VALUES (3,19,0,1,1);
-
-INSERT INTO Role VALUES (18,19,0,1,0);
-
 INSERT INTO Role VALUES (362, 19, 1, 0, 0);
 INSERT INTO Role VALUES (700, 19, 1, 0, 0);
 INSERT INTO Role VALUES (82, 19, 1, 0, 0);
@@ -475,23 +370,11 @@ INSERT INTO Role VALUES (187, 19, 1, 0, 0);
 INSERT INTO Role VALUES (762, 19, 1, 0, 0);
 INSERT INTO Role VALUES (573, 19, 1, 0, 0);
 
---compet 20 : 2 arbitres | 5 sportifs | Places restantes : 113  (le 25/06 à 8h) ATTENTION, DANS LE MÊME GYMNASE + MÊME DATE QUE LA COMPET 9
-INSERT INTO Role VALUES (1,20,0,1,1);
-
-INSERT INTO Role VALUES (20,20,0,1,0);
-
 INSERT INTO Role VALUES (553, 20, 1, 0, 0);
 INSERT INTO Role VALUES (180, 20, 1, 0, 0);
 INSERT INTO Role VALUES (174, 20, 1, 0, 0);
 INSERT INTO Role VALUES (360, 20, 1, 0, 0);
 INSERT INTO Role VALUES (201, 20, 1, 0, 0);
-
---compet 21 : 4 arbitres | 32 sportifs | Places restantes : 44  (le 24/06 à 8h)
-INSERT INTO Role VALUES (1,21,0,1,1);
-
-INSERT INTO Role VALUES (21,21,0,1,0);
-INSERT INTO Role VALUES (22,21,0,1,0);
-INSERT INTO Role VALUES (27,21,0,1,0);
 
 INSERT INTO Role VALUES (861, 21, 1, 0, 0);
 INSERT INTO Role VALUES (317, 21, 1, 0, 0);
@@ -525,8 +408,4 @@ INSERT INTO Role VALUES (725, 21, 1, 0, 0);
 INSERT INTO Role VALUES (832, 21, 1, 0, 0);
 INSERT INTO Role VALUES (528, 21, 1, 0, 0);
 INSERT INTO Role VALUES (863, 21, 1, 0, 0);
-
-
-
-
 
