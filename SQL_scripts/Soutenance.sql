@@ -34,7 +34,7 @@ ORDER BY freq; -- A tester
 -- infos financières
 SELECT COUNT(*) * 30 AS argent_rentrant FROM Spectateur;
 
-SELECT COUNT(*)*20*2 AS argent_rentrant_sportif FROM Role
+SELECT COUNT(*) * 30 AS argent_rentrant_sportif FROM Role
 WHERE bSportif = 1;
 
 SELECT COUNT(*)*12*2 AS argent_sortant_arbitre FROM Role
