@@ -17,24 +17,30 @@ SELECT SUM(salaireHoraireMini) * 40 FROM Personne;
 
 -- Pour avoir les détails de frequentation sur une journee ou une competition il suffit de select les competitions avec la date demandee
 -- Exemple pour la frequentation de toutes les competitions
-SELECT c.NomCompetition, COUNT(DISTINCT r.NumPersonne)+COUNT(DISTINCT s.NumPersonne) AS freq FROM Competition AS c
-JOIN Spectateur AS s ON s.NumCompetition = c.NumCompetition
-JOIN Role AS r ON r.NumCompetition = c.NumCompetition AND s.NumPersonne <> r.NumPersonne
-GROUP BY c.NumCompetition
-ORDER BY freq; -- A tester
+--SELECT c.NomCompetition, COUNT(DISTINCT r.NumPersonne)+COUNT(DISTINCT s.NumPersonne) AS freq FROM Competition AS c
+--JOIN Spectateur AS s ON s.NumCompetition = c.NumCompetition
+--JOIN Role AS r ON r.NumCompetition = c.NumCompetition AND s.NumPersonne <> r.NumPersonne
+--GROUP BY c.NumCompetition
+--ORDER BY freq; -- A tester
 
-SELECT c.NomCompetition, COUNT(DISTINCT r.NumPersonne) AS freq 
-FROM Competition AS c, Role AS r
-WHERE r.NumCompetition = c.NumCompetition
-GROUP BY c.NumCompetition
-ORDER BY freq; -- A tester
+--SELECT c.NomCompetition, COUNT(DISTINCT r.NumPersonne) AS freq 
+--FROM Competition AS c, Role AS r
+--WHERE r.NumCompetition = c.NumCompetition
+--GROUP BY c.NumCompetition
+--ORDER BY freq; -- A tester
 
-SELECT c.NomCompetition, COUNT(DISTINCT s.NumPersonne)+COUNT(DISTINCT s.NumPersonne) AS freq 
-FROM Competition AS c, Spectateur AS s, Role AS r
-WHERE s.NumCompetition = c.NumCompetition or r.NumCompetition = c.NumCompetition
-GROUP BY c.NumCompetition
+--SELECT c.NomCompetition, COUNT(DISTINCT s.NumPersonne)+COUNT(DISTINCT s.NumPersonne) AS freq 
+--FROM Competition AS c, Spectateur AS s, Role AS r
+--WHERE s.NumCompetition = c.NumCompetition or r.NumCompetition = c.NumCompetition
+--GROUP BY c.NumCompetition
+--ORDER BY freq;
+
+--Ok la solution avec de la triche et des operateurs ensemblistes
+WITH personnes AS (SELECT NumCompetition, NumPersonne FROM Spectateur UNION SELECT NumCompetition, NumPersonne FROM Role)
+SELECT c.NomCompetition, COUNT(p.NumPersonne) AS freq FROM personnes AS p
+JOIN Competition AS c ON c.NumCompetition = p.NumCompetition
+GROUP BY p.NumCompetition, c.NomCompetition
 ORDER BY freq;
-
 
 -- Pour export nos resultats de requetes dans des CSV tres jolis (c'est faux c'est pas joli)
 -- On peut tout simplement faire \copy (requete sql) TO 'path_to_file.csv' with CSV HEADER
