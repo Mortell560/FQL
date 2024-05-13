@@ -1001,4 +1001,4 @@ INSERT INTO Personne VALUES (1000, 'Pelland', 'Ray', 1959, '0755715156');
 INSERT INTO Personne VALUES (1001, 'Bob', 'Mauranne', NULL, '0607080910');
 INSERT INTO Personne VALUES (1002, 'Serge', 'Martinot', 1955, '0666666669');
 INSERT INTO Personne VALUES (1003, 'Serge', 'Martinot', 2001, '0000000000');
-
+INSERT INTO Personne VALUES (1004, 'Serge', 'Martin', NULL, '0000000000');
