@@ -22,7 +22,7 @@ CREATE TABLE Personne(
   NomPersonne VARCHAR(100) NOT NULL,
   PrenomPersonne VARCHAR(100) NOT NULL,
   anneeNaissancePersonne INT,
-  TelPersonne VARCHAR(16) NOT NULL,
+  TelPersonne VARCHAR(16),
   NumEmployeurPrincipal BIGINT,
   salaireHoraireMini NUMERIC(9,2),
   FOREIGN KEY(NumEmployeurPrincipal) REFERENCES Personne(NumPersonne)
