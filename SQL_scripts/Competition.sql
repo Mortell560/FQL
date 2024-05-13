@@ -1,7 +1,8 @@
 -- Mettre les orga avant et savoir leurs id, ca va etre important
 INSERT INTO Competition VALUES (1, 'Ball Busters', 120, '2024-06-22 14:00:00', 1, 32, 4, 8);
-INSERT INTO Competition VALUES (12, 'Ball Busters', 120, '2024-06-23 14:00:00', 3, 32, 4, 8);
+INSERT INTO Competition VALUES (12, 'Ball Busters', 120, '2024-06-23 14:00:00', 1, 32, 4, 8);
 INSERT INTO Competition VALUES (13, 'Ball Busters', 120, '2024-06-24 14:00:00', 1, 32, 4, 8);
+INSERT INTO Competition VALUES (21, 'Ball Busters', 120, '2024-06-24 08:00:00', 1, 32, 4, 8);
 
 INSERT INTO Competition VALUES (2, 'Hand''s off', 120, '2024-06-20 08:00:00', 2, 40, 4, 10);
 INSERT INTO Competition VALUES (14, 'Hand''s off', 120, '2024-06-21 08:00:00', 2, 40, 4, 10);
