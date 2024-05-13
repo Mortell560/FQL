@@ -17,9 +17,9 @@ SELECT SUM(salaireHoraireMini) * 40 FROM Personne;
 
 -- Pour avoir les détails de frequentation sur une journee ou une competition il suffit de select les competitions avec la date demandee
 -- Exemple pour la frequentation de toutes les competitions
-SELECT NomCompetition, COUNT(DISTINCT NumPersonne) AS freq FROM Competition AS c
+SELECT NomCompetition, COUNT(DISTINCT r.NumPersonne)+COUNT(DISTINCT s.NumPersonne) AS freq FROM Competition AS c
 JOIN Spectateur AS s ON s.NumCompetition = c.NumCompetition
-JOIN Role AS r ON r.NumCompetition = c.NumCompetition
+JOIN Role AS r ON r.NumCompetition = c.NumCompetition AND s.NumPersonne <> r.NumPersonne
 GROUP BY NumCompetition
 ORDER BY freq; -- A tester
 
@@ -43,7 +43,17 @@ WHERE bArbitre = 1;
 SELECT COUNT(*)*20*2 AS argent_sortant_organisateur FROM Role
 WHERE bOrga = 1;
 
+-- horaire des compèt 1 et 12
+SELECT DateCompetition
+FROM Competition
+WHERE NumCompetition = 1 or NumCompetition = 12;
+-- Pour n'avoir que l'heure :
+-- select DateCompetition::time
 
+
+-- liste des personnels avec leurs données financières et le nom de leur employeur principal
+-- liste des inscrits (sportifs) montant récolté par leurs inscriptions
+-- nombre maximum d’argent récoltable en fonction de la capacité utile
 
 
 
