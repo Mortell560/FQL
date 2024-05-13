@@ -21,7 +21,7 @@ CREATE TABLE Personne(
   NumPersonne BIGINT PRIMARY KEY NOT NULL, 
   NomPersonne VARCHAR(100) NOT NULL,
   PrenomPersonne VARCHAR(100) NOT NULL,
-  anneeNaissancePersonne INT NOT NULL,
+  anneeNaissancePersonne INT,
   TelPersonne VARCHAR(16) NOT NULL,
   NumEmployeurPrincipal BIGINT,
   salaireHoraireMini NUMERIC(9,2),
