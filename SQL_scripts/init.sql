@@ -28,18 +28,6 @@ CREATE TABLE Personne(
   FOREIGN KEY(NumEmployeurPrincipal) REFERENCES Personne(NumPersonne)
 );
 
-CREATE TABLE Competition (
-  NumCompetition BIGINT PRIMARY KEY NOT NULL,
-  NomCompetition TEXT NOT NULL,
-  DureeCompetition INT NOT NULL,
-  DateCompetition TIMESTAMP NOT NULL,
-  NumChef BIGINT NOT NULL,
-  besoin_min_sportifs INT NOT NULL,
-  besoin_min_arbitre INT NOT NULL,
-  nb_Max_sportif_par_arbitre INT NOT NULL,
-  FOREIGN KEY(NumChef) REFERENCES Personne(NumPersonne)
-);
-
 CREATE TABLE Gymnase(
   NumGymnase BIGINT PRIMARY KEY NOT NULL,
   NomGymnase TEXT NOT NULL,
@@ -50,6 +38,22 @@ CREATE TABLE Gymnase(
 CREATE TABLE Sport (
   NumSport BIGINT PRIMARY KEY NOT NULL,
   NomSport TEXT
+);
+
+CREATE TABLE Competition (
+  NumCompetition BIGINT PRIMARY KEY NOT NULL,
+  NomCompetition TEXT NOT NULL,
+  DureeCompetition INT NOT NULL,
+  DateCompetition TIMESTAMP NOT NULL,
+  NumChef BIGINT NOT NULL,
+  besoin_min_sportifs INT NOT NULL,
+  besoin_min_arbitre INT NOT NULL,
+  nb_Max_sportif_par_arbitre INT NOT NULL,
+  NumGymnase BIGINT NOT NULL,
+  NumSport BIGINT NOT NULL,
+  FOREIGN KEY(NumChef) REFERENCES Personne(NumPersonne),
+  FOREIGN KEY(NumGymnase) REFERENCES Gymnase(NumGymnase),
+  FOREIGN KEY(NumSport) REFERENCES Sport(NumSport)
 );
 
 CREATE TABLE Role (
@@ -69,16 +73,6 @@ CREATE TABLE SportGymnase (
   FOREIGN KEY(NumGymnase) REFERENCES Gymnase(NumGymnase),
   FOREIGN KEY(NumSport) REFERENCES Sport(NumSport),
   PRIMARY KEY(NumGymnase, NumSport)
-);
-
-CREATE TABLE SportCompetition(
-  NumCompetition BIGINT NOT NULL,
-  NumSport BIGINT NOT NULL,
-  NumGymnase BIGINT NOT NULL,
-  FOREIGN KEY(NumCompetition) REFERENCES Competition(NumCompetition),
-  FOREIGN KEY(NumSport) REFERENCES Sport(NumSport),
-  FOREIGN KEY(NumGymnase) REFERENCES Gymnase(NumGymnase),
-  PRIMARY KEY(NumCompetition, NumSport)
 );
 
 CREATE TABLE Spectateur(
