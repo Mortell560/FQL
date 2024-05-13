@@ -1,6 +1,7 @@
 INSERT INTO SportCompetition VALUES (1,1,43); 
 INSERT INTO SportCompetition VALUES (12,1,42);
 INSERT INTO SportCompetition VALUES (13,1,43);
+INSERT INTO SportCompetition VALUES (21,1,41);
 
 INSERT INTO SportCompetition VALUES (2,2,42); 
 INSERT INTO SportCompetition VALUES (14,2,42);

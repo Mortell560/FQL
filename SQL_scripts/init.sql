@@ -5,14 +5,14 @@
 --GRANT ALL ON SCHEMA public TO postgres;
 --GRANT ALL ON SCHEMA public TO public;
 
-DROP TABLE Spectateur CASCADE;
-DROP TABLE SportGymnase CASCADE;
-DROP TABLE SportCompetition CASCADE;
-DROP TABLE Competition CASCADE;
-DROP TABLE Role CASCADE;
-DROP TABLE Sport CASCADE;
-DROP TABLE Gymnase CASCADE;
-DROP TABLE Personne CASCADE;
+DROP TABLE IF EXISTS Spectateur CASCADE;
+DROP TABLE IF EXISTS SportGymnase CASCADE;
+DROP TABLE IF EXISTS SportCompetition CASCADE;
+DROP TABLE IF EXISTS Competition CASCADE;
+DROP TABLE IF EXISTS Role CASCADE;
+DROP TABLE IF EXISTS Sport CASCADE;
+DROP TABLE IF EXISTS Gymnase CASCADE;
+DROP TABLE IF EXISTS Personne CASCADE;
 
 
 -- Schema
@@ -21,8 +21,8 @@ CREATE TABLE Personne(
   NumPersonne BIGINT PRIMARY KEY NOT NULL, 
   NomPersonne VARCHAR(100) NOT NULL,
   PrenomPersonne VARCHAR(100) NOT NULL,
-  anneeNaissancePersonne INT NOT NULL,
-  TelPersonne VARCHAR(16) NOT NULL,
+  anneeNaissancePersonne INT,
+  TelPersonne VARCHAR(16),
   NumEmployeurPrincipal BIGINT,
   salaireHoraireMini NUMERIC(9,2),
   FOREIGN KEY(NumEmployeurPrincipal) REFERENCES Personne(NumPersonne)
