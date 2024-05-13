@@ -92,3 +92,9 @@ INSERT INTO Spectateur VALUES (494,1);
 INSERT INTO Spectateur VALUES (495,1);
 INSERT INTO Spectateur VALUES (752,1);
 INSERT INTO Spectateur VALUES (763,1);
+
+-- 3 incrits à la compétition 2 (Ball Busters)
+
+INSERT INTO Spectateur VALUES (911,2);
+INSERT INTO Spectateur VALUES (859,2);
+INSERT INTO Spectateur VALUES (615,2);
