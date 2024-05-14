@@ -56,10 +56,12 @@ SELECT COUNT(*) * 30 AS argent_rentrant FROM Spectateur;
 SELECT COUNT(*) * 30 AS argent_rentrant_sportif FROM Role
 WHERE bSportif = 1;
 
-SELECT COUNT(*)*12*2 AS argent_sortant_arbitre FROM Role
+SELECT COUNT(*)*12* c.DureeCompetition/60 AS argent_sortant_arbitre FROM Role AS r
+JOIN Competition AS c ON c.NumCompetition = r.NumCompetition
 WHERE bArbitre = 1;
 
-SELECT COUNT(*)*20*2 AS argent_sortant_organisateur FROM Role
+SELECT COUNT(*)*20* c.DureeCompetition/60 AS argent_sortant_organisateur FROM Role
+JOIN Competition AS c ON c.NumCompetition = r.NumCompetition
 WHERE bOrga = 1;
 
 --Tout en une ligne, oui c'est moche mais bon
@@ -97,11 +99,13 @@ WHERE NumCompetition = 1 or NumCompetition = 12;
 
 -- liste des inscrits (sportifs) montant récolté par leurs inscriptions | déjà fait il me semble
 -- nombre maximum d’argent récoltable en fonction de la capacité utile
-
+WITH personnes AS (SELECT NumCompetition, NumPersonne FROM Role WHERE bOrga=1 OR bArbitre=1 AND bSportif=0)
+SELECT (SUM(g.capaciteMaxGymnase)-COALESCE(COUNT(pe.NumPersonne)))*30 AS argent_recoltable FROM personnes AS pe
+LEFT JOIN Competition AS c ON c.NumCompetition = pe.NumCompetition
+LEFT JOIN Gymnase AS g ON g.NumGymnase = c.NumGymnase;
 
 -- Afficher les competitions dispo pour un sport
 --Exemple : Basketball
---Problème : ne prend pas en compte les compétitions sans spectateurs
 SELECT c.NomCompetition, c.DateCompetition, COALESCE(COUNT(DISTINCT s.NumPersonne)) AS nb_spectateurs, COALESCE(COUNT(DISTINCT r.NumPersonne)) AS nb_sportifs_et_autres, g.capaciteMaxGymnase, g.NomGymnase
 FROM Competition AS c
 JOIN SportGymnase AS sg ON sg.NumGymnase = c.NumGymnase AND sg.NumSport = c.NumSport
