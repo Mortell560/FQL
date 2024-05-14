@@ -38,7 +38,7 @@ FROM Competition;
 
 -- Sol avec overlap Q4
 -- Utilisable en psql uniquement
-/*
+
 WITH cte AS (
   SELECT DateCompetition FROM Competition
   UNION
@@ -50,8 +50,8 @@ cte_fin AS (
 
 SELECT SUM(AGE(EndDate, StartDate)) + COUNT(*) * INTERVAL '1 minute' AS duree_totale -- On compense les minutes retirees pour calculer les intervales de temps
 FROM cte_fin
-WHERE EndDate IS NOT NULL;
-*/
+WHERE AGE(EndDate, StartDate) <= '2 hour';
+
 --SELECT SUM(DureeCompetition)
 --FROM cte_fin AS cf CROSS APPLY (Competition AS c)
 --WHERE cf.EndDate IS NOT NULL;
