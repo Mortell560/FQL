@@ -1,7 +1,7 @@
 -- 92 incrit à la compétion 1 (Ball Busters)
--- Il n'y a que 56 places avec les sportifs
+-- Il n'y a que 56 places si on décompte les sportifs et arbitres
 
-INSERT INTO Spectateur VALUES (5,1);
+/*INSERT INTO Spectateur VALUES (5,1);
 INSERT INTO Spectateur VALUES (520,1);
 INSERT INTO Spectateur VALUES (9,1);
 INSERT INTO Spectateur VALUES (12,1);
@@ -36,7 +36,7 @@ INSERT INTO Spectateur VALUES (100,1);
 INSERT INTO Spectateur VALUES (872,1);
 INSERT INTO Spectateur VALUES (618,1);
 INSERT INTO Spectateur VALUES (622,1);
-INSERT INTO Spectateur VALUES (623,1);
+INSERT INTO Spectateur VALUES (623,1);*/
 INSERT INTO Spectateur VALUES (630,1);
 INSERT INTO Spectateur VALUES (890,1);
 INSERT INTO Spectateur VALUES (892,1);
@@ -99,3 +99,5 @@ INSERT INTO Spectateur VALUES (763,1);
 INSERT INTO Spectateur VALUES (911,12);
 INSERT INTO Spectateur VALUES (859,12);
 INSERT INTO Spectateur VALUES (615,12);
+
+-- O inscrits  la compétition 21 (Ball Busters)
