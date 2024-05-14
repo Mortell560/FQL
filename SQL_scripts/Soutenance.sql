@@ -93,9 +93,13 @@ WHERE NumCompetition = 1 or NumCompetition = 12;
 ---******************************************************
 
 -- liste des personnels avec leurs données financières et le nom de leur employeur principal | "leurs données financières" i.e. leur salaire ? 
---                                                                                              Si oui, on les paies à leur présence ou c'est leur salaire 
---                                                                                              minimultiplié par le nombre d'heures possibles, même si ils ne 
---                                                                                              sont pas là ?
+-- Solution supposant le non-overlapping (Sinon faut utiliser les deux sous-requests de la question 4)
+SELECT p.NomPersonne, p.PrenomPersonne, c.DureeCompetition/60 * p.salaireHoraireMini AS salaire_du, pemp.NomPersonne AS NomEmployeur, pemp.PrenomPersonne AS PrenomEmployeur
+FROM Role AS r
+JOIN Personne AS p ON p.NumPersonne = r.NumPersonne
+JOIN Competition AS c ON c.NumCompetition = r.NumCompetition
+JOIN Personne AS pemp ON pemp.NumPersonne = p.NumEmployeurPrincipal;
+-- Ajouter un WHERE pour specifier la competition
 
 -- liste des inscrits (sportifs) montant récolté par leurs inscriptions | déjà fait il me semble
 -- nombre maximum d’argent récoltable en fonction de la capacité utile

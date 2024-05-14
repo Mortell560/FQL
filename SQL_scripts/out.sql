@@ -6,14 +6,14 @@
 --GRANT ALL ON SCHEMA public TO postgres;
 --GRANT ALL ON SCHEMA public TO public;
 
-DROP TABLE Spectateur CASCADE;
-DROP TABLE SportGymnase CASCADE;
-DROP TABLE SportCompetition CASCADE;
-DROP TABLE Competition CASCADE;
-DROP TABLE Role CASCADE;
-DROP TABLE Sport CASCADE;
-DROP TABLE Gymnase CASCADE;
-DROP TABLE Personne CASCADE;
+DROP TABLE IF EXISTS Spectateur CASCADE;
+DROP TABLE IF EXISTS SportGymnase CASCADE;
+DROP TABLE IF EXISTS SportCompetition CASCADE;
+DROP TABLE IF EXISTS Competition CASCADE;
+DROP TABLE IF EXISTS Role CASCADE;
+DROP TABLE IF EXISTS Sport CASCADE;
+DROP TABLE IF EXISTS Gymnase CASCADE;
+DROP TABLE IF EXISTS Personne CASCADE;
 
 
 -- Schema
@@ -22,23 +22,11 @@ CREATE TABLE Personne(
   NumPersonne BIGINT PRIMARY KEY NOT NULL, 
   NomPersonne VARCHAR(100) NOT NULL,
   PrenomPersonne VARCHAR(100) NOT NULL,
-  anneeNaissancePersonne INT NOT NULL,
-  TelPersonne VARCHAR(16) NOT NULL,
+  anneeNaissancePersonne INT,
+  TelPersonne VARCHAR(16),
   NumEmployeurPrincipal BIGINT,
   salaireHoraireMini NUMERIC(9,2),
   FOREIGN KEY(NumEmployeurPrincipal) REFERENCES Personne(NumPersonne)
-);
-
-CREATE TABLE Competition (
-  NumCompetition BIGINT PRIMARY KEY NOT NULL,
-  NomCompetition TEXT NOT NULL,
-  DureeCompetition INT NOT NULL,
-  DateCompetition TIMESTAMP NOT NULL,
-  NumChef BIGINT NOT NULL,
-  besoin_min_sportifs INT NOT NULL,
-  besoin_min_arbitre INT NOT NULL,
-  nb_Max_sportif_par_arbitre INT NOT NULL,
-  FOREIGN KEY(NumChef) REFERENCES Personne(NumPersonne)
 );
 
 CREATE TABLE Gymnase(
@@ -53,6 +41,29 @@ CREATE TABLE Sport (
   NomSport TEXT
 );
 
+CREATE TABLE SportGymnase (
+  NumGymnase BIGINT NOT NULL,
+  NumSport BIGINT NOT NULL,
+  FOREIGN KEY(NumGymnase) REFERENCES Gymnase(NumGymnase),
+  FOREIGN KEY(NumSport) REFERENCES Sport(NumSport),
+  PRIMARY KEY(NumGymnase, NumSport)
+);
+
+CREATE TABLE Competition (
+  NumCompetition BIGINT PRIMARY KEY NOT NULL,
+  NomCompetition TEXT NOT NULL,
+  DureeCompetition INT NOT NULL,
+  DateCompetition TIMESTAMP NOT NULL,
+  NumChef BIGINT NOT NULL,
+  besoin_min_sportifs INT NOT NULL,
+  besoin_min_arbitre INT NOT NULL,
+  nb_Max_sportif_par_arbitre INT NOT NULL,
+  NumSport BIGINT NOT NULL,
+  NumGymnase BIGINT NOT NULL,
+  FOREIGN KEY(NumChef) REFERENCES Personne(NumPersonne),
+  FOREIGN KEY(NumGymnase, NumSport) REFERENCES SportGymnase(NumGymnase, NumSport)
+);
+
 CREATE TABLE Role (
   NumPersonne BIGINT NOT NULL,
   NumCompetition BIGINT NOT NULL,
@@ -62,24 +73,6 @@ CREATE TABLE Role (
   FOREIGN KEY (NumPersonne) REFERENCES Personne(NumPersonne),
   FOREIGN KEY (NumCompetition) REFERENCES Competition(NumCompetition),
   PRIMARY KEY(NumPersonne, NumCompetition)
-);
-
-CREATE TABLE SportGymnase (
-  NumGymnase BIGINT NOT NULL,
-  NumSport BIGINT NOT NULL,
-  FOREIGN KEY(NumGymnase) REFERENCES Gymnase(NumGymnase),
-  FOREIGN KEY(NumSport) REFERENCES Sport(NumSport),
-  PRIMARY KEY(NumGymnase, NumSport)
-);
-
-CREATE TABLE SportCompetition(
-  NumCompetition BIGINT NOT NULL,
-  NumSport BIGINT NOT NULL,
-  NumGymnase BIGINT NOT NULL,
-  FOREIGN KEY(NumCompetition) REFERENCES Competition(NumCompetition),
-  FOREIGN KEY(NumSport) REFERENCES Sport(NumSport),
-  FOREIGN KEY(NumGymnase) REFERENCES Gymnase(NumGymnase),
-  PRIMARY KEY(NumCompetition, NumSport)
 );
 
 CREATE TABLE Spectateur(
@@ -98,33 +91,33 @@ CREATE TABLE Spectateur(
 
 
 -- Content from file Personne --
-INSERT INTO Personne VALUES (1, 'Tison', 'Alexandre', 2004, '0744493406');
-INSERT INTO Personne VALUES (2, 'Bafour', 'Ambre', 2004, '0615534191');
-INSERT INTO Personne VALUES (3, 'Tang', 'Floriane', 2004, '0793585796');
-INSERT INTO Personne VALUES (4, 'Sansouci', 'Cammile', 1949, '0652940559');
-INSERT INTO Personne VALUES (5, 'Beauchemin', 'Fauna', 1969, '0702991012');
-INSERT INTO Personne VALUES (6, 'Vaillancourt', 'Warrane', 1977, '0740946254');
-INSERT INTO Personne VALUES (7, 'Sylvain', 'Patrick', 1939, '0742561423');
-INSERT INTO Personne VALUES (8, 'Archambault', 'Alice', 1988, '0626168138');
-INSERT INTO Personne VALUES (9, 'Chesnay', 'Théophile', 1960, '0621897250');
-INSERT INTO Personne VALUES (10, 'Béland', 'Romain', 1972, '0738701152');
-INSERT INTO Personne VALUES (11, 'Laberge', 'Sidney', 2000, '0695358105');
-INSERT INTO Personne VALUES (12, 'Couturier', 'Alacoque', 1985, '0753501975');
-INSERT INTO Personne VALUES (13, 'Gour', 'Mandel', 1957, '0745458986');
-INSERT INTO Personne VALUES (14, 'Béland', 'Lucas', 1953, '0723767384');
-INSERT INTO Personne VALUES (15, 'Sorel', 'Bradamate', 1946, '0638470411');
-INSERT INTO Personne VALUES (16, 'Carignan', 'Mirabelle', 1982, '0753773031');
-INSERT INTO Personne VALUES (17, 'Lebel', 'Jesper', 1945, '0631639251');
-INSERT INTO Personne VALUES (18, 'Bler', 'Sargent', 1992, '0773504442');
-INSERT INTO Personne VALUES (19, 'Émond', 'Searlas', 1947, '0615086127');
-INSERT INTO Personne VALUES (20, 'Fongemie', 'Marcel', 1968, '0738692191');
-INSERT INTO Personne VALUES (21, 'Couture', 'Odo', 1946, '0681938226');
-INSERT INTO Personne VALUES (22, 'Busson', 'Yves', 1993, '0655353665');
-INSERT INTO Personne VALUES (23, 'Paradis', 'Fifine', 1946, '0739558779');
-INSERT INTO Personne VALUES (24, 'Bourgouin', 'Brice', 1989, '0739415928');
-INSERT INTO Personne VALUES (25, 'Thibault', 'Martine', 1997, '0713062144');
-INSERT INTO Personne VALUES (26, 'Beaulieu', 'Cher', 1979, '0621559985');
-INSERT INTO Personne VALUES (27, 'Noël', 'Arno', 1954, '0670382496');
+INSERT INTO Personne VALUES (1, 'Tison', 'Alexandre', 2004, '0744493406', 1, 32);
+INSERT INTO Personne VALUES (2, 'Bafour', 'Ambre', 2004, '0615534191', 2, 32);
+INSERT INTO Personne VALUES (3, 'Tang', 'Floriane', 2004, '0793585796', 3, 32);
+INSERT INTO Personne VALUES (4, 'Sansouci', 'Cammile', 1949, '0652940559', 1, 12);
+INSERT INTO Personne VALUES (5, 'Beauchemin', 'Fauna', 1969, '0702991012', 2, 12);
+INSERT INTO Personne VALUES (6, 'Vaillancourt', 'Warrane', 1977, '0740946254', 3, 20);
+INSERT INTO Personne VALUES (7, 'Sylvain', 'Patrick', 1939, '0742561423', 1, 20);
+INSERT INTO Personne VALUES (8, 'Archambault', 'Alice', 1988, '0626168138', 2, 12);
+INSERT INTO Personne VALUES (9, 'Chesnay', 'Théophile', 1960, '0621897250', 3, 20);
+INSERT INTO Personne VALUES (10, 'Béland', 'Romain', 1972, '0738701152', 1, 12);
+INSERT INTO Personne VALUES (11, 'Laberge', 'Sidney', 2000, '0695358105', 2, 20);
+INSERT INTO Personne VALUES (12, 'Couturier', 'Alacoque', 1985, '0753501975', 3, 12);
+INSERT INTO Personne VALUES (13, 'Gour', 'Mandel', 1957, '0745458986', 1, 20);
+INSERT INTO Personne VALUES (14, 'Béland', 'Lucas', 1953, '0723767384', 2, 12);
+INSERT INTO Personne VALUES (15, 'Sorel', 'Bradamate', 1946, '0638470411', 3, 20);
+INSERT INTO Personne VALUES (16, 'Carignan', 'Mirabelle', 1982, '0753773031', 1, 12);
+INSERT INTO Personne VALUES (17, 'Lebel', 'Jesper', 1945, '0631639251', 2, 20);
+INSERT INTO Personne VALUES (18, 'Bler', 'Sargent', 1992, '0773504442', 3, 12);
+INSERT INTO Personne VALUES (19, 'Émond', 'Searlas', 1947, '0615086127', 1, 20);
+INSERT INTO Personne VALUES (20, 'Fongemie', 'Marcel', 1968, '0738692191', 2, 12);
+INSERT INTO Personne VALUES (21, 'Couture', 'Odo', 1946, '0681938226', 3, 12);
+INSERT INTO Personne VALUES (22, 'Busson', 'Yves', 1993, '0655353665', 1, 12);
+INSERT INTO Personne VALUES (23, 'Paradis', 'Fifine', 1946, '0739558779', 2, 20);
+INSERT INTO Personne VALUES (24, 'Bourgouin', 'Brice', 1989, '0739415928', 3, 20);
+INSERT INTO Personne VALUES (25, 'Thibault', 'Martine', 1997, '0713062144', 1, 20);
+INSERT INTO Personne VALUES (26, 'Beaulieu', 'Cher', 1979, '0621559985', 2, 20);
+INSERT INTO Personne VALUES (27, 'Noël', 'Arno', 1954, '0670382496', 3, 12);
 INSERT INTO Personne VALUES (28, 'Tougas', 'Cendrillon', 1964, '0666509178');
 INSERT INTO Personne VALUES (29, 'Martel', 'Burkett', 1941, '0603680993');
 INSERT INTO Personne VALUES (30, 'Morin', 'Aceline', 1955, '0749266630');
@@ -1020,7 +1013,7 @@ INSERT INTO Personne VALUES (919, 'Beaudouin', 'Saber', 1977, '0757228441');
 INSERT INTO Personne VALUES (920, 'Hébert', 'Manville', 1970, '0706752120');
 INSERT INTO Personne VALUES (921, 'Quiron', 'Caroline', 1981, '0743813619');
 INSERT INTO Personne VALUES (922, 'Fournier', 'Dreux', 1941, '0715180545');
-INSERT INTO Personne VALUES (923, 'Rancourt', '"La Roux"', 1963, '0745160055');
+INSERT INTO Personne VALUES (923, 'Rancourt', 'Louis', 1963, '0745160055');
 INSERT INTO Personne VALUES (924, 'Couet', 'Isaac', 1955, '0647677519');
 INSERT INTO Personne VALUES (925, 'Fresne', 'Gradasso', 1992, '0740126555');
 INSERT INTO Personne VALUES (926, 'Boutot', 'Pansy', 1944, '0751958943');
@@ -1098,6 +1091,10 @@ INSERT INTO Personne VALUES (997, 'Grandpré', 'Brie', 1965, '0683555590');
 INSERT INTO Personne VALUES (998, 'Deserres', 'Estelle', 1987, '0721667943');
 INSERT INTO Personne VALUES (999, 'Lapointe', 'Gilles', 1953, '0752215952');
 INSERT INTO Personne VALUES (1000, 'Pelland', 'Ray', 1959, '0755715156');
+INSERT INTO Personne VALUES (1001, 'Bob', 'Mauranne', NULL, '0607080910');
+INSERT INTO Personne VALUES (1002, 'Serge', 'Martinot', 1955, '0666666669');
+INSERT INTO Personne VALUES (1003, 'Serge', 'Martinot', 2001, '0000000000');
+INSERT INTO Personne VALUES (1004, 'Serge', 'Martin', NULL, '0000000000');
 
 -- Content from file Sport --
 INSERT INTO Sport VALUES (1, 'Basketball');
@@ -1123,104 +1120,732 @@ INSERT INTO Gymnase VALUES (14, 'Terasse', '16 place de la Liberté', 12);
 INSERT INTO Gymnase VALUES (41, 'Salle des fetes', 'Place du fronton 64520 Bidache', 80);
 INSERT INTO Gymnase VALUES (42, 'Salle polyvalente', 'Place du fronton 64520 Bidache', 120);
 
--- Content from file Competition --
--- Mettre les orga avant et savoir leurs id, ca va etre important
-INSERT INTO Competition VALUES (1, 'Ball Busters', 120, '2024-06-22 14:00:00', 1, 32, 4, 8);
-INSERT INTO Competition VALUES (12, 'Ball Busters', 120, '2024-06-23 14:00:00', 1, 32, 4, 8);
-INSERT INTO Competition VALUES (13, 'Ball Busters', 120, '2024-06-24 14:00:00', 1, 32, 4, 8);
-
-INSERT INTO Competition VALUES (2, 'Hand''s off', 120, '2024-06-20 08:00:00', 2, 40, 4, 10);
-INSERT INTO Competition VALUES (14, 'Hand''s off', 120, '2024-06-21 08:00:00', 2, 40, 4, 10);
-INSERT INTO Competition VALUES (15, 'Hand''s off', 120, '2024-06-22 08:00:00', 2, 40, 4, 10);
-
-INSERT INTO Competition VALUES (3, 'Soccer Royale', 120, '2024-06-24 14:00:00', 1, 24, 3, 12);
-INSERT INTO Competition VALUES (16, 'Soccer Royale', 120, '2024-06-25 14:00:00', 1, 24, 3, 12);
-INSERT INTO Competition VALUES (17, 'Soccer Royale', 120, '2024-06-26 14:00:00', 1, 24, 3, 12);
-
-INSERT INTO Competition VALUES (4, 'Lancer de troncs d''arbre', 120, '2024-06-20 08:00:00', 3, 10, 1, 10);
-
-INSERT INTO Competition VALUES (5, 'Porter de femme', 120, '2024-06-21 08:00:00', 3, 10, 1, 10);
-
-INSERT INTO Competition VALUES (6, 'Sacathlon', 120, '2024-06-22 08:00:00', 3, 10, 1, 10);
-
-INSERT INTO Competition VALUES (7, 'Breakdance', 120, '2024-06-23 08:00:00', 2, 10, 3, 5);
-INSERT INTO Competition VALUES (18, 'Breakdance', 120, '2024-06-24 08:00:00', 2, 10, 3, 5);
-
-INSERT INTO Competition VALUES (8, 'Hockey sur gazon', 120,'2024-06-25 08:00:00', 3, 20, 2, 10);
-
-INSERT INTO Competition VALUES (9, 'Pétanque', 120, '2024-06-25 08:00:00', 1, 20, 4, 5);
-INSERT INTO Competition VALUES (20, 'Molkky', 120, '2024-06-25 08:00:00', 1, 20, 4, 5);
-
-INSERT INTO Competition VALUES (10, 'Tennis de Table', 120, '2024-06-26 08:00:00', 2, 6, 2, 2);
-
-INSERT INTO Competition VALUES (11, 'Judo', 120, '2024-06-26 14:00:00', 1, 6, 2, 2);
-INSERT INTO Competition VALUES (19, 'Judo', 120, '2024-06-26 08:00:00', 3, 6, 2, 2);
-
-
--- Content from file Role --
-INSERT INTO Role VALUES (1,1,1,1,1,1); -- placeholder 
-
 -- Content from file SportGymnase --
+INSERT INTO SportGymnase VALUES (44,1);
+INSERT INTO SportGymnase VALUES (44,5);
 INSERT INTO SportGymnase VALUES (44,6);
 INSERT INTO SportGymnase VALUES (44,7);
+INSERT INTO SportGymnase VALUES (44,9);
+INSERT INTO SportGymnase VALUES (44,10);
+INSERT INTO SportGymnase VALUES (44,11);
 INSERT INTO SportGymnase VALUES (43,1);
+INSERT INTO SportGymnase VALUES (43,4);
+INSERT INTO SportGymnase VALUES (43,5);
+INSERT INTO SportGymnase VALUES (43,6);
 INSERT INTO SportGymnase VALUES (43,7);
+INSERT INTO SportGymnase VALUES (43,9);
+INSERT INTO SportGymnase VALUES (43,10);
+INSERT INTO SportGymnase VALUES (43,11);
+INSERT INTO SportGymnase VALUES (43,12);
+INSERT INTO SportGymnase VALUES (15,1);
+INSERT INTO SportGymnase VALUES (15,2);
+INSERT INTO SportGymnase VALUES (15,3);
 INSERT INTO SportGymnase VALUES (15,7);
 INSERT INTO SportGymnase VALUES (15,12);
 INSERT INTO SportGymnase VALUES (14,4);
 INSERT INTO SportGymnase VALUES (14,5);
 INSERT INTO SportGymnase VALUES (14,6);
+INSERT INTO SportGymnase VALUES (14,7);
 INSERT INTO SportGymnase VALUES (14,8);
 INSERT INTO SportGymnase VALUES (14,9);
 INSERT INTO SportGymnase VALUES (14,10);
+INSERT INTO SportGymnase VALUES (14,11);
+INSERT INTO SportGymnase VALUES (14,12);
+INSERT INTO SportGymnase VALUES (41,1);
+INSERT INTO SportGymnase VALUES (41,2);
+INSERT INTO SportGymnase VALUES (41,3);
+INSERT INTO SportGymnase VALUES (41,4);
+INSERT INTO SportGymnase VALUES (41,5);
 INSERT INTO SportGymnase VALUES (41,6);
 INSERT INTO SportGymnase VALUES (41,7);
+INSERT INTO SportGymnase VALUES (41,9);
+INSERT INTO SportGymnase VALUES (41,10);
+INSERT INTO SportGymnase VALUES (41,11);
 INSERT INTO SportGymnase VALUES (41,12);
 INSERT INTO SportGymnase VALUES (42,1);
 INSERT INTO SportGymnase VALUES (42,2);
 INSERT INTO SportGymnase VALUES (42,3);
 INSERT INTO SportGymnase VALUES (42,6);
 INSERT INTO SportGymnase VALUES (42,7);
+INSERT INTO SportGymnase VALUES (42,8);
 INSERT INTO SportGymnase VALUES (42,9);
 INSERT INTO SportGymnase VALUES (42,10);
 INSERT INTO SportGymnase VALUES (42,11);
 INSERT INTO SportGymnase VALUES (42,12);
--- Content from file SportCompetition --
-INSERT INTO SportCompetition VALUES (1,1,43); 
-INSERT INTO SportCompetition VALUES (12,1,42);
-INSERT INTO SportCompetition VALUES (13,1,43);
+-- Content from file Competition --
+-- Mettre les orga avant et savoir leurs id, ca va etre important
+INSERT INTO Competition VALUES (1, 'Ball Busters', 120, '2024-06-22 14:00:00', 1, 32, 4, 8, 1, 43);
+INSERT INTO Competition VALUES (12, 'Ball Busters', 120, '2024-06-23 14:00:00', 1, 32, 4, 8, 1, 42);
+INSERT INTO Competition VALUES (13, 'Ball Busters', 120, '2024-06-24 14:00:00', 1, 32, 4, 8, 1, 43);
+INSERT INTO Competition VALUES (21, 'Ball Busters', 120, '2024-06-24 08:00:00', 1, 32, 4, 8, 1, 41);
 
-INSERT INTO SportCompetition VALUES (2,2,42); 
-INSERT INTO SportCompetition VALUES (14,2,42);
-INSERT INTO SportCompetition VALUES (15,2,42);
+INSERT INTO Competition VALUES (2, 'Hand''s off', 120, '2024-06-20 08:00:00', 2, 40, 4, 10, 2, 42);
+INSERT INTO Competition VALUES (14, 'Hand''s off', 120, '2024-06-21 08:00:00', 2, 40, 4, 10, 2, 42);
+INSERT INTO Competition VALUES (15, 'Hand''s off', 120, '2024-06-22 08:00:00', 2, 40, 4, 10, 2, 42);
 
-INSERT INTO SportCompetition VALUES (3,3,42); 
-INSERT INTO SportCompetition VALUES (16,3,42);
-INSERT INTO SportCompetition VALUES (17,3,42);
+INSERT INTO Competition VALUES (3, 'Soccer Royale', 120, '2024-06-24 14:00:00', 1, 24, 3, 12, 3, 42);
+INSERT INTO Competition VALUES (16, 'Soccer Royale', 120, '2024-06-25 14:00:00', 3, 24, 3, 12, 3, 42);
+INSERT INTO Competition VALUES (17, 'Soccer Royale', 120, '2024-06-26 14:00:00', 1, 24, 3, 12, 3, 42);
 
-INSERT INTO SportCompetition VALUES (4,4,14);
+INSERT INTO Competition VALUES (4, 'Lancer de troncs d''arbre', 120, '2024-06-20 08:00:00', 3, 5, 1, 5, 4, 14);
 
-INSERT INTO SportCompetition VALUES (5,5,44);
+INSERT INTO Competition VALUES (5, 'Porter de femme', 120, '2024-06-21 08:00:00', 3, 10, 1, 10, 5, 44);
 
-INSERT INTO SportCompetition VALUES (6,6,14);
+INSERT INTO Competition VALUES (6, 'Sacathlon', 120, '2024-06-22 08:00:00', 3, 5, 1, 5, 6, 14);
 
-INSERT INTO SportCompetition VALUES (7,7,42);
-INSERT INTO SportCompetition VALUES (18,7,42);
+INSERT INTO Competition VALUES (7, 'Breakdance', 120, '2024-06-23 08:00:00', 2, 10, 3, 5, 7, 42);
+INSERT INTO Competition VALUES (18, 'Breakdance', 120, '2024-06-24 08:00:00', 2, 10, 3, 5, 7, 42);
 
-INSERT INTO SportCompetition VALUES (8,8,14);
+INSERT INTO Competition VALUES (8, 'Hockey sur gazon', 120,'2024-06-25 08:00:00', 3, 2, 2, 10, 8, 14);
 
-INSERT INTO SportCompetition VALUES (9,9,42);
-INSERT INTO SportCompetition VALUES (9,10,42);
+INSERT INTO Competition VALUES (9, 'Pétanque', 120, '2024-06-25 08:00:00', 1, 5, 2, 3, 9, 42);
 
-INSERT INTO SportCompetition VALUES (10,11,42);
-INSERT INTO SportCompetition VALUES (20,11,42);
+INSERT INTO Competition VALUES (20, 'Molkky', 120, '2024-06-25 08:00:00', 1, 5, 2, 3,10,41);
 
-INSERT INTO SportCompetition VALUES (11,12,41);
-INSERT INTO SportCompetition VALUES (19,12,41);
+INSERT INTO Competition VALUES (10, 'Tennis de Table', 120, '2024-06-26 08:00:00', 2, 6, 2, 3, 11, 42);
+
+INSERT INTO Competition VALUES (11, 'Judo', 120, '2024-06-26 14:00:00', 1, 6, 2, 3, 12, 41);
+INSERT INTO Competition VALUES (19, 'Judo', 120, '2024-06-26 08:00:00', 3, 6, 2, 3, 12, 41);
+
+
+-- Content from file Role --
+--compet 1 : 4 arbitres | 32 sportifs | Places restantes : 56 (le 22/06 à 14h)
+INSERT INTO Role VALUES (1,1,0,1,1);
+
+INSERT INTO Role VALUES (4,1,0,1,0);
+INSERT INTO Role VALUES (5,1,0,1,0);
+INSERT INTO Role VALUES (8,1,0,1,0);
+
+INSERT INTO Role VALUES (983, 1, 1, 0, 0);
+INSERT INTO Role VALUES (843, 1, 1, 0, 0);
+INSERT INTO Role VALUES (134, 1, 1, 0, 0);
+INSERT INTO Role VALUES (770, 1, 1, 0, 0);
+INSERT INTO Role VALUES (742, 1, 1, 0, 0);
+INSERT INTO Role VALUES (642, 1, 1, 0, 0);
+INSERT INTO Role VALUES (112, 1, 1, 0, 0);
+INSERT INTO Role VALUES (648, 1, 1, 0, 0);
+INSERT INTO Role VALUES (610, 1, 1, 0, 0);
+INSERT INTO Role VALUES (252, 1, 1, 0, 0);
+INSERT INTO Role VALUES (626, 1, 1, 0, 0);
+INSERT INTO Role VALUES (924, 1, 1, 0, 0);
+INSERT INTO Role VALUES (639, 1, 1, 0, 0);
+INSERT INTO Role VALUES (999, 1, 1, 0, 0);
+INSERT INTO Role VALUES (689, 1, 1, 0, 0);
+INSERT INTO Role VALUES (822, 1, 1, 0, 0);
+INSERT INTO Role VALUES (302, 1, 1, 0, 0);
+INSERT INTO Role VALUES (284, 1, 1, 0, 0);
+INSERT INTO Role VALUES (478, 1, 1, 0, 0);
+INSERT INTO Role VALUES (104, 1, 1, 0, 0);
+INSERT INTO Role VALUES (6, 1, 1, 0, 0);
+INSERT INTO Role VALUES (58, 1, 1, 0, 0);
+INSERT INTO Role VALUES (707, 1, 1, 0, 0);
+INSERT INTO Role VALUES (562, 1, 1, 0, 0);
+INSERT INTO Role VALUES (936, 1, 1, 0, 0);
+INSERT INTO Role VALUES (39, 1, 1, 0, 0);
+INSERT INTO Role VALUES (279, 1, 1, 0, 0);
+INSERT INTO Role VALUES (497, 1, 1, 0, 0);
+INSERT INTO Role VALUES (70, 1, 1, 0, 0);
+INSERT INTO Role VALUES (150, 1, 1, 0, 0);
+INSERT INTO Role VALUES (704, 1, 1, 0, 0);
+INSERT INTO Role VALUES (558, 1, 1, 0, 0);
+
+--compet 2 : 3 arbitres | 40 sportifs | Places restantes : 77 (le 20/06 à 8h)
+INSERT INTO Role VALUES (2,2,0,1,1);
+
+INSERT INTO Role VALUES (10,2,0,1,0);
+INSERT INTO Role VALUES (12,2,0,1,0);
+
+INSERT INTO Role VALUES (536, 2, 1, 0, 0);
+INSERT INTO Role VALUES (212, 2, 1, 0, 0);
+INSERT INTO Role VALUES (701, 2, 1, 0, 0);
+INSERT INTO Role VALUES (56, 2, 1, 0, 0);
+INSERT INTO Role VALUES (169, 2, 1, 0, 0);
+INSERT INTO Role VALUES (713, 2, 1, 0, 0);
+INSERT INTO Role VALUES (956, 2, 1, 0, 0);
+INSERT INTO Role VALUES (839, 2, 1, 0, 0);
+INSERT INTO Role VALUES (653, 2, 1, 0, 0);
+INSERT INTO Role VALUES (710, 2, 1, 0, 0);
+INSERT INTO Role VALUES (815, 2, 1, 0, 0);
+INSERT INTO Role VALUES (331, 2, 1, 0, 0);
+INSERT INTO Role VALUES (288, 2, 1, 0, 0);
+INSERT INTO Role VALUES (249, 2, 1, 0, 0);
+INSERT INTO Role VALUES (582, 2, 1, 0, 0);
+INSERT INTO Role VALUES (327, 2, 1, 0, 0);
+INSERT INTO Role VALUES (72, 2, 1, 0, 0);
+INSERT INTO Role VALUES (68, 2, 1, 0, 0);
+INSERT INTO Role VALUES (720, 2, 1, 0, 0);
+INSERT INTO Role VALUES (479, 2, 1, 0, 0);
+INSERT INTO Role VALUES (374, 2, 1, 0, 0);
+INSERT INTO Role VALUES (500, 2, 1, 0, 0);
+INSERT INTO Role VALUES (534, 2, 1, 0, 0);
+INSERT INTO Role VALUES (865, 2, 1, 0, 0);
+INSERT INTO Role VALUES (728, 2, 1, 0, 0);
+INSERT INTO Role VALUES (59, 2, 1, 0, 0);
+INSERT INTO Role VALUES (888, 2, 1, 0, 0);
+INSERT INTO Role VALUES (643, 2, 1, 0, 0);
+INSERT INTO Role VALUES (420, 2, 1, 0, 0);
+INSERT INTO Role VALUES (25, 2, 1, 0, 0);
+INSERT INTO Role VALUES (329, 2, 1, 0, 0);
+INSERT INTO Role VALUES (309, 2, 1, 0, 0);
+INSERT INTO Role VALUES (494, 2, 1, 0, 0);
+INSERT INTO Role VALUES (412, 2, 1, 0, 0);
+INSERT INTO Role VALUES (591, 2, 1, 0, 0);
+INSERT INTO Role VALUES (807, 2, 1, 0, 0);
+INSERT INTO Role VALUES (527, 2, 1, 0, 0);
+INSERT INTO Role VALUES (290, 2, 1, 0, 0);
+INSERT INTO Role VALUES (181, 2, 1, 0, 0);
+INSERT INTO Role VALUES (120, 2, 1, 0, 0);
+
+--compet 3 : 3 arbitres | 24 sportifs | Places restantes : 93 (le 24/06 à 14h)
+INSERT INTO Role VALUES (1,3,0,1,1);
+
+INSERT INTO Role VALUES (14,3,0,1,0);
+INSERT INTO Role VALUES (16,3,0,1,0);
+
+INSERT INTO Role VALUES (805, 3, 1, 0, 0);
+INSERT INTO Role VALUES (549, 3, 1, 0, 0);
+INSERT INTO Role VALUES (396, 3, 1, 0, 0);
+INSERT INTO Role VALUES (683, 3, 1, 0, 0);
+INSERT INTO Role VALUES (801, 3, 1, 0, 0);
+INSERT INTO Role VALUES (135, 3, 1, 0, 0);
+INSERT INTO Role VALUES (971, 3, 1, 0, 0);
+INSERT INTO Role VALUES (655, 3, 1, 0, 0);
+INSERT INTO Role VALUES (961, 3, 1, 0, 0);
+INSERT INTO Role VALUES (163, 3, 1, 0, 0);
+INSERT INTO Role VALUES (51, 3, 1, 0, 0);
+INSERT INTO Role VALUES (315, 3, 1, 0, 0);
+INSERT INTO Role VALUES (367, 3, 1, 0, 0);
+INSERT INTO Role VALUES (732, 3, 1, 0, 0);
+INSERT INTO Role VALUES (392, 3, 1, 0, 0);
+INSERT INTO Role VALUES (921, 3, 1, 0, 0);
+INSERT INTO Role VALUES (78, 3, 1, 0, 0);
+INSERT INTO Role VALUES (866, 3, 1, 0, 0);
+INSERT INTO Role VALUES (916, 3, 1, 0, 0);
+INSERT INTO Role VALUES (769, 3, 1, 0, 0);
+INSERT INTO Role VALUES (951, 3, 1, 0, 0);
+INSERT INTO Role VALUES (638, 3, 1, 0, 0);
+INSERT INTO Role VALUES (305, 3, 1, 0, 0);
+INSERT INTO Role VALUES (116, 3, 1, 0, 0);
+
+--compet 4 : 1 arbitres | 5 sportifs | Places restantes : 6 (le 20/06 à 8h)
+INSERT INTO Role VALUES (3,4,0,1,1);
+
+INSERT INTO Role VALUES (733, 4, 1, 0, 0);
+INSERT INTO Role VALUES (371, 4, 1, 0, 0);
+INSERT INTO Role VALUES (816, 4, 1, 0, 0);
+INSERT INTO Role VALUES (611, 4, 1, 0, 0);
+INSERT INTO Role VALUES (468, 4, 1, 0, 0);
+
+--compet 5 : 1 arbitres | 10 sportifs | Places restantes : 53 (le 21/06 à 8h)
+INSERT INTO Role VALUES (3,5,0,1,1);
+
+INSERT INTO Role VALUES (878, 5, 1, 0, 0);
+INSERT INTO Role VALUES (143, 5, 1, 0, 0);
+INSERT INTO Role VALUES (423, 5, 1, 0, 0);
+INSERT INTO Role VALUES (100, 5, 1, 0, 0);
+INSERT INTO Role VALUES (510, 5, 1, 0, 0);
+INSERT INTO Role VALUES (563, 5, 1, 0, 0);
+INSERT INTO Role VALUES (893, 5, 1, 0, 0);
+INSERT INTO Role VALUES (795, 5, 1, 0, 0);
+INSERT INTO Role VALUES (375, 5, 1, 0, 0);
+INSERT INTO Role VALUES (73, 5, 1, 0, 0);
+
+--compet 6 : 1 arbitres | 5 sportifs | Places restantes : 6 (le 22/06 à 8h)
+INSERT INTO Role VALUES (3,6,0,1,1);
+
+INSERT INTO Role VALUES (915, 6, 1, 0, 0);
+INSERT INTO Role VALUES (934, 6, 1, 0, 0);
+INSERT INTO Role VALUES (263, 6, 1, 0, 0);
+INSERT INTO Role VALUES (656, 6, 1, 0, 0);
+INSERT INTO Role VALUES (291, 6, 1, 0, 0);
+
+--compet 7 : 3 arbitres | 10 sportifs | Places restantes : 107  (le 23/06 à 8h)
+INSERT INTO Role VALUES (2,7,0,1,1);
+
+INSERT INTO Role VALUES (18,7,0,1,0);
+INSERT INTO Role VALUES (20,7,0,1,0);
+
+INSERT INTO Role VALUES (179, 7, 1, 0, 0);
+INSERT INTO Role VALUES (711, 7, 1, 0, 0);
+INSERT INTO Role VALUES (182, 7, 1, 0, 0);
+INSERT INTO Role VALUES (991, 7, 1, 0, 0);
+INSERT INTO Role VALUES (280, 7, 1, 0, 0);
+INSERT INTO Role VALUES (998, 7, 1, 0, 0);
+INSERT INTO Role VALUES (465, 7, 1, 0, 0);
+INSERT INTO Role VALUES (357, 7, 1, 0, 0);
+INSERT INTO Role VALUES (298, 7, 1, 0, 0);
+INSERT INTO Role VALUES (629, 7, 1, 0, 0);
+
+--compet 8 : 2 arbitres | 2 sportifs | Places restantes : 8  (le 25/06 à 8h)
+INSERT INTO Role VALUES (3,8,0,1,1);
+
+INSERT INTO Role VALUES (21,8,0,1,0);
+
+INSERT INTO Role VALUES (513, 8, 1, 0, 0);
+INSERT INTO Role VALUES (518, 8, 1, 0, 0);
+
+--compet 9 : 2 arbitres | 5 sportifs | Places restantes : 113  (le 25/06 à 8h) 
+INSERT INTO Role VALUES (1,9,0,1,1);
+
+INSERT INTO Role VALUES (22,9,0,1,0);
+
+INSERT INTO Role VALUES (986, 9, 1, 0, 0);
+INSERT INTO Role VALUES (817, 9, 1, 0, 0);
+INSERT INTO Role VALUES (530, 9, 1, 0, 0);
+INSERT INTO Role VALUES (410, 9, 1, 0, 0);
+INSERT INTO Role VALUES (119, 9, 1, 0, 0);
+
+--compet 10 : 2 arbitres | 6 sportifs | Places restantes : 112  (le 26/06 à 8h)
+INSERT INTO Role VALUES (2,10,0,1,1);
+
+INSERT INTO Role VALUES (27,10,0,1,0);
+
+INSERT INTO Role VALUES (227, 10, 1, 0, 0);
+INSERT INTO Role VALUES (205, 10, 1, 0, 0);
+INSERT INTO Role VALUES (982, 10, 1, 0, 0);
+INSERT INTO Role VALUES (441, 10, 1, 0, 0);
+INSERT INTO Role VALUES (85, 10, 1, 0, 0);
+INSERT INTO Role VALUES (953, 10, 1, 0, 0);
+
+--compet 11 : 2 arbitres | 6 sportifs | Places restantes : 72  (le 26/06 à 14h)
+INSERT INTO Role VALUES (1,11,0,1,1);
+
+INSERT INTO Role VALUES (4,11,0,1,0);
+
+INSERT INTO Role VALUES (353, 11, 1, 0, 0);
+INSERT INTO Role VALUES (690, 11, 1, 0, 0);
+INSERT INTO Role VALUES (336, 11, 1, 0, 0);
+INSERT INTO Role VALUES (293, 11, 1, 0, 0);
+INSERT INTO Role VALUES (781, 11, 1, 0, 0);
+INSERT INTO Role VALUES (621, 11, 1, 0, 0);
+
+--compet 12 : 4 arbitres | 32 sportifs | Places restantes : 84  (le 23/06 à 14h)
+INSERT INTO Role VALUES (1,12,0,1,1);
+
+INSERT INTO Role VALUES (5,12,0,1,0);
+INSERT INTO Role VALUES (8,12,0,1,0);
+INSERT INTO Role VALUES (10,12,0,1,0);
+
+INSERT INTO Role VALUES (211, 12, 1, 0, 0);
+INSERT INTO Role VALUES (910, 12, 1, 0, 0);
+INSERT INTO Role VALUES (421, 12, 1, 0, 0);
+INSERT INTO Role VALUES (406, 12, 1, 0, 0);
+INSERT INTO Role VALUES (210, 12, 1, 0, 0);
+INSERT INTO Role VALUES (525, 12, 1, 0, 0);
+INSERT INTO Role VALUES (165, 12, 1, 0, 0);
+INSERT INTO Role VALUES (385, 12, 1, 0, 0);
+INSERT INTO Role VALUES (230, 12, 1, 0, 0);
+INSERT INTO Role VALUES (255, 12, 1, 0, 0);
+INSERT INTO Role VALUES (42, 12, 1, 0, 0);
+INSERT INTO Role VALUES (925, 12, 1, 0, 0);
+INSERT INTO Role VALUES (432, 12, 1, 0, 0);
+INSERT INTO Role VALUES (572, 12, 1, 0, 0);
+INSERT INTO Role VALUES (764, 12, 1, 0, 0);
+INSERT INTO Role VALUES (523, 12, 1, 0, 0);
+INSERT INTO Role VALUES (727, 12, 1, 0, 0);
+INSERT INTO Role VALUES (102, 12, 1, 0, 0);
+INSERT INTO Role VALUES (766, 12, 1, 0, 0);
+INSERT INTO Role VALUES (761, 12, 1, 0, 0);
+INSERT INTO Role VALUES (40, 12, 1, 0, 0);
+INSERT INTO Role VALUES (136, 12, 1, 0, 0);
+INSERT INTO Role VALUES (765, 12, 1, 0, 0);
+INSERT INTO Role VALUES (697, 12, 1, 0, 0);
+INSERT INTO Role VALUES (980, 12, 1, 0, 0);
+INSERT INTO Role VALUES (206, 12, 1, 0, 0);
+INSERT INTO Role VALUES (323, 12, 1, 0, 0);
+INSERT INTO Role VALUES (98, 12, 1, 0, 0);
+INSERT INTO Role VALUES (320, 12, 1, 0, 0);
+INSERT INTO Role VALUES (384, 12, 1, 0, 0);
+INSERT INTO Role VALUES (544, 12, 1, 0, 0);
+INSERT INTO Role VALUES (559, 12, 1, 0, 0);
+
+--compet 13 : 4 arbitres | 32 sportifs | Places restantes : 56  (le 24/06 à 14h)
+INSERT INTO Role VALUES (1,13,0,1,1);
+
+INSERT INTO Role VALUES (12,13,0,1,0);
+INSERT INTO Role VALUES (18,13,0,1,0);
+INSERT INTO Role VALUES (20,13,0,1,0);
+
+INSERT INTO Role VALUES (481, 13, 1, 0, 0);
+INSERT INTO Role VALUES (550, 13, 1, 0, 0);
+INSERT INTO Role VALUES (545, 13, 1, 0, 0);
+INSERT INTO Role VALUES (989, 13, 1, 0, 0);
+INSERT INTO Role VALUES (170, 13, 1, 0, 0);
+INSERT INTO Role VALUES (342, 13, 1, 0, 0);
+INSERT INTO Role VALUES (904, 13, 1, 0, 0);
+INSERT INTO Role VALUES (564, 13, 1, 0, 0);
+INSERT INTO Role VALUES (975, 13, 1, 0, 0);
+INSERT INTO Role VALUES (845, 13, 1, 0, 0);
+INSERT INTO Role VALUES (183, 13, 1, 0, 0);
+INSERT INTO Role VALUES (830, 13, 1, 0, 0);
+INSERT INTO Role VALUES (162, 13, 1, 0, 0);
+INSERT INTO Role VALUES (931, 13, 1, 0, 0);
+INSERT INTO Role VALUES (1000, 13, 1, 0, 0);
+INSERT INTO Role VALUES (758, 13, 1, 0, 0);
+INSERT INTO Role VALUES (231, 13, 1, 0, 0);
+INSERT INTO Role VALUES (79, 13, 1, 0, 0);
+INSERT INTO Role VALUES (264, 13, 1, 0, 0);
+INSERT INTO Role VALUES (234, 13, 1, 0, 0);
+INSERT INTO Role VALUES (735, 13, 1, 0, 0);
+INSERT INTO Role VALUES (985, 13, 1, 0, 0);
+INSERT INTO Role VALUES (787, 13, 1, 0, 0);
+INSERT INTO Role VALUES (173, 13, 1, 0, 0);
+INSERT INTO Role VALUES (318, 13, 1, 0, 0);
+INSERT INTO Role VALUES (808, 13, 1, 0, 0);
+INSERT INTO Role VALUES (786, 13, 1, 0, 0);
+INSERT INTO Role VALUES (203, 13, 1, 0, 0);
+INSERT INTO Role VALUES (492, 13, 1, 0, 0);
+INSERT INTO Role VALUES (34, 13, 1, 0, 0);
+INSERT INTO Role VALUES (215, 13, 1, 0, 0);
+INSERT INTO Role VALUES (274, 13, 1, 0, 0);
+
+--compet 14 : 4 arbitres | 40 sportifs | Places restantes : 76  (le 21/06 à 8h)
+INSERT INTO Role VALUES (2,14,0,1,1);
+
+INSERT INTO Role VALUES (14,14,0,1,0);
+INSERT INTO Role VALUES (16,14,0,1,0);
+INSERT INTO Role VALUES (21,14,0,1,0);
+
+INSERT INTO Role VALUES (538, 14, 1, 0, 0);
+INSERT INTO Role VALUES (244, 14, 1, 0, 0);
+INSERT INTO Role VALUES (31, 14, 1, 0, 0);
+INSERT INTO Role VALUES (520, 14, 1, 0, 0);
+INSERT INTO Role VALUES (594, 14, 1, 0, 0);
+INSERT INTO Role VALUES (973, 14, 1, 0, 0);
+INSERT INTO Role VALUES (547, 14, 1, 0, 0);
+INSERT INTO Role VALUES (825, 14, 1, 0, 0);
+INSERT INTO Role VALUES (966, 14, 1, 0, 0);
+INSERT INTO Role VALUES (373, 14, 1, 0, 0);
+INSERT INTO Role VALUES (754, 14, 1, 0, 0);
+INSERT INTO Role VALUES (370, 14, 1, 0, 0);
+INSERT INTO Role VALUES (391, 14, 1, 0, 0);
+INSERT INTO Role VALUES (397, 14, 1, 0, 0);
+INSERT INTO Role VALUES (853, 14, 1, 0, 0);
+INSERT INTO Role VALUES (250, 14, 1, 0, 0);
+INSERT INTO Role VALUES (788, 14, 1, 0, 0);
+INSERT INTO Role VALUES (632, 14, 1, 0, 0);
+INSERT INTO Role VALUES (430, 14, 1, 0, 0);
+INSERT INTO Role VALUES (870, 14, 1, 0, 0);
+INSERT INTO Role VALUES (869, 14, 1, 0, 0);
+INSERT INTO Role VALUES (489, 14, 1, 0, 0);
+INSERT INTO Role VALUES (292, 14, 1, 0, 0);
+INSERT INTO Role VALUES (671, 14, 1, 0, 0);
+INSERT INTO Role VALUES (172, 14, 1, 0, 0);
+INSERT INTO Role VALUES (389, 14, 1, 0, 0);
+INSERT INTO Role VALUES (340, 14, 1, 0, 0);
+INSERT INTO Role VALUES (418, 14, 1, 0, 0);
+INSERT INTO Role VALUES (958, 14, 1, 0, 0);
+INSERT INTO Role VALUES (428, 14, 1, 0, 0);
+INSERT INTO Role VALUES (127, 14, 1, 0, 0);
+INSERT INTO Role VALUES (152, 14, 1, 0, 0);
+INSERT INTO Role VALUES (968, 14, 1, 0, 0);
+INSERT INTO Role VALUES (709, 14, 1, 0, 0);
+INSERT INTO Role VALUES (757, 14, 1, 0, 0);
+INSERT INTO Role VALUES (461, 14, 1, 0, 0);
+INSERT INTO Role VALUES (200, 14, 1, 0, 0);
+INSERT INTO Role VALUES (819, 14, 1, 0, 0);
+INSERT INTO Role VALUES (287, 14, 1, 0, 0);
+INSERT INTO Role VALUES (714, 14, 1, 0, 0);
+
+--compet 15 : 4 arbitres | 40 sportifs | Places restantes : 76  (le 22/06 à 8h)
+INSERT INTO Role VALUES (2,15,0,1,1);
+
+INSERT INTO Role VALUES (22,15,0,1,0);
+INSERT INTO Role VALUES (27,15,0,1,0);
+INSERT INTO Role VALUES (4,15,0,1,0);
+
+INSERT INTO Role VALUES (191, 15, 1, 0, 0);
+INSERT INTO Role VALUES (616, 15, 1, 0, 0);
+INSERT INTO Role VALUES (522, 15, 1, 0, 0);
+INSERT INTO Role VALUES (589, 15, 1, 0, 0);
+INSERT INTO Role VALUES (491, 15, 1, 0, 0);
+INSERT INTO Role VALUES (813, 15, 1, 0, 0);
+INSERT INTO Role VALUES (670, 15, 1, 0, 0);
+INSERT INTO Role VALUES (913, 15, 1, 0, 0);
+INSERT INTO Role VALUES (140, 15, 1, 0, 0);
+INSERT INTO Role VALUES (918, 15, 1, 0, 0);
+INSERT INTO Role VALUES (552, 15, 1, 0, 0);
+INSERT INTO Role VALUES (740, 15, 1, 0, 0);
+INSERT INTO Role VALUES (627, 15, 1, 0, 0);
+INSERT INTO Role VALUES (118, 15, 1, 0, 0);
+INSERT INTO Role VALUES (844, 15, 1, 0, 0);
+INSERT INTO Role VALUES (121, 15, 1, 0, 0);
+INSERT INTO Role VALUES (326, 15, 1, 0, 0);
+INSERT INTO Role VALUES (404, 15, 1, 0, 0);
+INSERT INTO Role VALUES (723, 15, 1, 0, 0);
+INSERT INTO Role VALUES (677, 15, 1, 0, 0);
+INSERT INTO Role VALUES (387, 15, 1, 0, 0);
+INSERT INTO Role VALUES (927, 15, 1, 0, 0);
+INSERT INTO Role VALUES (348, 15, 1, 0, 0);
+INSERT INTO Role VALUES (688, 15, 1, 0, 0);
+INSERT INTO Role VALUES (130, 15, 1, 0, 0);
+INSERT INTO Role VALUES (736, 15, 1, 0, 0);
+INSERT INTO Role VALUES (744, 15, 1, 0, 0);
+INSERT INTO Role VALUES (123, 15, 1, 0, 0);
+INSERT INTO Role VALUES (509, 15, 1, 0, 0);
+INSERT INTO Role VALUES (570, 15, 1, 0, 0);
+INSERT INTO Role VALUES (345, 15, 1, 0, 0);
+INSERT INTO Role VALUES (857, 15, 1, 0, 0);
+INSERT INTO Role VALUES (238, 15, 1, 0, 0);
+INSERT INTO Role VALUES (992, 15, 1, 0, 0);
+INSERT INTO Role VALUES (920, 15, 1, 0, 0);
+INSERT INTO Role VALUES (512, 15, 1, 0, 0);
+INSERT INTO Role VALUES (739, 15, 1, 0, 0);
+INSERT INTO Role VALUES (726, 15, 1, 0, 0);
+INSERT INTO Role VALUES (429, 15, 1, 0, 0);
+INSERT INTO Role VALUES (776, 15, 1, 0, 0);
+
+--compet 16 : 3 arbitres | 24 sportifs | Places restantes : 92  (le 25/06 à 14h)
+INSERT INTO Role VALUES (3,16,0,1,1);
+
+INSERT INTO Role VALUES (5,16,0,1,0);
+INSERT INTO Role VALUES (8,16,0,1,0);
+
+INSERT INTO Role VALUES (117, 16, 1, 0, 0);
+INSERT INTO Role VALUES (289, 16, 1, 0, 0);
+INSERT INTO Role VALUES (324, 16, 1, 0, 0);
+INSERT INTO Role VALUES (101, 16, 1, 0, 0);
+INSERT INTO Role VALUES (729, 16, 1, 0, 0);
+INSERT INTO Role VALUES (791, 16, 1, 0, 0);
+INSERT INTO Role VALUES (196, 16, 1, 0, 0);
+INSERT INTO Role VALUES (654, 16, 1, 0, 0);
+INSERT INTO Role VALUES (294, 16, 1, 0, 0);
+INSERT INTO Role VALUES (811, 16, 1, 0, 0);
+INSERT INTO Role VALUES (734, 16, 1, 0, 0);
+INSERT INTO Role VALUES (202, 16, 1, 0, 0);
+INSERT INTO Role VALUES (962, 16, 1, 0, 0);
+INSERT INTO Role VALUES (923, 16, 1, 0, 0);
+INSERT INTO Role VALUES (62, 16, 1, 0, 0);
+INSERT INTO Role VALUES (88, 16, 1, 0, 0);
+INSERT INTO Role VALUES (748, 16, 1, 0, 0);
+INSERT INTO Role VALUES (339, 16, 1, 0, 0);
+INSERT INTO Role VALUES (443, 16, 1, 0, 0);
+INSERT INTO Role VALUES (388, 16, 1, 0, 0);
+INSERT INTO Role VALUES (422, 16, 1, 0, 0);
+INSERT INTO Role VALUES (129, 16, 1, 0, 0);
+INSERT INTO Role VALUES (242, 16, 1, 0, 0);
+INSERT INTO Role VALUES (660, 16, 1, 0, 0);
+
+--compet 17 : 3 arbitres | 24 sportifs | Places restantes : 92  (le 26/06 à 14h)
+INSERT INTO Role VALUES (1,17,0,1,1);
+
+INSERT INTO Role VALUES (10,17,0,1,0);
+INSERT INTO Role VALUES (12,17,0,1,0);
+
+INSERT INTO Role VALUES (146, 17, 1, 0, 0);
+INSERT INTO Role VALUES (835, 17, 1, 0, 0);
+INSERT INTO Role VALUES (46, 17, 1, 0, 0);
+INSERT INTO Role VALUES (944, 17, 1, 0, 0);
+INSERT INTO Role VALUES (456, 17, 1, 0, 0);
+INSERT INTO Role VALUES (658, 17, 1, 0, 0);
+INSERT INTO Role VALUES (401, 17, 1, 0, 0);
+INSERT INTO Role VALUES (314, 17, 1, 0, 0);
+INSERT INTO Role VALUES (988, 17, 1, 0, 0);
+INSERT INTO Role VALUES (963, 17, 1, 0, 0);
+INSERT INTO Role VALUES (184, 17, 1, 0, 0);
+INSERT INTO Role VALUES (49, 17, 1, 0, 0);
+INSERT INTO Role VALUES (737, 17, 1, 0, 0);
+INSERT INTO Role VALUES (313, 17, 1, 0, 0);
+INSERT INTO Role VALUES (661, 17, 1, 0, 0);
+INSERT INTO Role VALUES (316, 17, 1, 0, 0);
+INSERT INTO Role VALUES (551, 17, 1, 0, 0);
+INSERT INTO Role VALUES (793, 17, 1, 0, 0);
+INSERT INTO Role VALUES (674, 17, 1, 0, 0);
+INSERT INTO Role VALUES (464, 17, 1, 0, 0);
+INSERT INTO Role VALUES (907, 17, 1, 0, 0);
+INSERT INTO Role VALUES (91, 17, 1, 0, 0);
+INSERT INTO Role VALUES (77, 17, 1, 0, 0);
+INSERT INTO Role VALUES (586, 17, 1, 0, 0);
+
+--compet 18 : 3 arbitres | 10 sportifs | Places restantes : 107  (le 24/06 à 8h)
+INSERT INTO Role VALUES (2,18,0,1,1);
+
+INSERT INTO Role VALUES (14,18,0,1,0);
+INSERT INTO Role VALUES (16,18,0,1,0);
+
+INSERT INTO Role VALUES (485, 18, 1, 0, 0);
+INSERT INTO Role VALUES (52, 18, 1, 0, 0);
+INSERT INTO Role VALUES (556, 18, 1, 0, 0);
+INSERT INTO Role VALUES (303, 18, 1, 0, 0);
+INSERT INTO Role VALUES (803, 18, 1, 0, 0);
+INSERT INTO Role VALUES (581, 18, 1, 0, 0);
+INSERT INTO Role VALUES (496, 18, 1, 0, 0);
+INSERT INTO Role VALUES (198, 18, 1, 0, 0);
+INSERT INTO Role VALUES (647, 18, 1, 0, 0);
+INSERT INTO Role VALUES (462, 18, 1, 0, 0);
+
+--compet 19 : 2 arbitres | 6 sportifs | Places restantes : 72  (le 26/06 à 8h)
+INSERT INTO Role VALUES (3,19,0,1,1);
+
+INSERT INTO Role VALUES (18,19,0,1,0);
+
+INSERT INTO Role VALUES (362, 19, 1, 0, 0);
+INSERT INTO Role VALUES (700, 19, 1, 0, 0);
+INSERT INTO Role VALUES (82, 19, 1, 0, 0);
+INSERT INTO Role VALUES (187, 19, 1, 0, 0);
+INSERT INTO Role VALUES (762, 19, 1, 0, 0);
+INSERT INTO Role VALUES (573, 19, 1, 0, 0);
+
+--compet 20 : 2 arbitres | 5 sportifs | Places restantes : 73 (le 25/06 à 8h) 
+INSERT INTO Role VALUES (1,20,0,1,1);
+
+INSERT INTO Role VALUES (20,20,0,1,0);
+
+INSERT INTO Role VALUES (553, 20, 1, 0, 0);
+INSERT INTO Role VALUES (180, 20, 1, 0, 0);
+INSERT INTO Role VALUES (174, 20, 1, 0, 0);
+INSERT INTO Role VALUES (360, 20, 1, 0, 0);
+INSERT INTO Role VALUES (201, 20, 1, 0, 0);
+
+--compet 21 : 4 arbitres | 32 sportifs | Places restantes : 44  (le 24/06 à 8h)
+--Pour suivre la 2e étapes du mail, sera identique à la compet 1 dans un autre gymnase, jour et horaire
+--Aucun spectateur !!!!
+INSERT INTO Role VALUES (1,21,0,1,1);
+
+INSERT INTO Role VALUES (4,21,0,1,0);
+INSERT INTO Role VALUES (5,21,0,1,0);
+INSERT INTO Role VALUES (8,21,0,1,0);
+
+INSERT INTO Role VALUES (861, 21, 1, 0, 0);
+INSERT INTO Role VALUES (317, 21, 1, 0, 0);
+INSERT INTO Role VALUES (306, 21, 1, 0, 0);
+INSERT INTO Role VALUES (579, 21, 1, 0, 0);
+INSERT INTO Role VALUES (682, 21, 1, 0, 0);
+INSERT INTO Role VALUES (132, 21, 1, 0, 0);
+INSERT INTO Role VALUES (248, 21, 1, 0, 0);
+INSERT INTO Role VALUES (319, 21, 1, 0, 0);
+INSERT INTO Role VALUES (297, 21, 1, 0, 0);
+INSERT INTO Role VALUES (55, 21, 1, 0, 0);
+INSERT INTO Role VALUES (408, 21, 1, 0, 0);
+INSERT INTO Role VALUES (537, 21, 1, 0, 0);
+INSERT INTO Role VALUES (154, 21, 1, 0, 0);
+INSERT INTO Role VALUES (147, 21, 1, 0, 0);
+INSERT INTO Role VALUES (258, 21, 1, 0, 0);
+INSERT INTO Role VALUES (379, 21, 1, 0, 0);
+INSERT INTO Role VALUES (806, 21, 1, 0, 0);
+INSERT INTO Role VALUES (574, 21, 1, 0, 0);
+INSERT INTO Role VALUES (23, 21, 1, 0, 0);
+INSERT INTO Role VALUES (48, 21, 1, 0, 0);
+INSERT INTO Role VALUES (378, 21, 1, 0, 0);
+INSERT INTO Role VALUES (350, 21, 1, 0, 0);
+INSERT INTO Role VALUES (569, 21, 1, 0, 0);
+INSERT INTO Role VALUES (157, 21, 1, 0, 0);
+INSERT INTO Role VALUES (782, 21, 1, 0, 0);
+INSERT INTO Role VALUES (541, 21, 1, 0, 0);
+INSERT INTO Role VALUES (849, 21, 1, 0, 0);
+INSERT INTO Role VALUES (476, 21, 1, 0, 0);
+INSERT INTO Role VALUES (725, 21, 1, 0, 0);
+INSERT INTO Role VALUES (832, 21, 1, 0, 0);
+INSERT INTO Role VALUES (528, 21, 1, 0, 0);
+INSERT INTO Role VALUES (863, 21, 1, 0, 0);
+
+
 
 
 
 
 -- Content from file Spectateur --
-INSERT INTO Spectateur VALUES (1,1); -- placeholder 
+-- 92 incrit à la compétion 1 (Ball Busters)
+-- Il n'y a que 56 places si on décompte les sportifs et arbitres
+
+/*INSERT INTO Spectateur VALUES (5,1);
+INSERT INTO Spectateur VALUES (520,1);
+INSERT INTO Spectateur VALUES (9,1);
+INSERT INTO Spectateur VALUES (12,1);
+INSERT INTO Spectateur VALUES (276,1);
+INSERT INTO Spectateur VALUES (20,1);
+INSERT INTO Spectateur VALUES (25,1);
+INSERT INTO Spectateur VALUES (539,1);
+INSERT INTO Spectateur VALUES (286,1);
+INSERT INTO Spectateur VALUES (546,1);
+INSERT INTO Spectateur VALUES (291,1);
+INSERT INTO Spectateur VALUES (808,1);
+INSERT INTO Spectateur VALUES (552,1);
+INSERT INTO Spectateur VALUES (558,1);
+INSERT INTO Spectateur VALUES (50,1);
+INSERT INTO Spectateur VALUES (306,1);
+INSERT INTO Spectateur VALUES (308,1);
+INSERT INTO Spectateur VALUES (822,1);
+INSERT INTO Spectateur VALUES (315,1);
+INSERT INTO Spectateur VALUES (65,1);
+INSERT INTO Spectateur VALUES (321,1);
+INSERT INTO Spectateur VALUES (67,1);
+INSERT INTO Spectateur VALUES (838,1);
+INSERT INTO Spectateur VALUES (327,1);
+INSERT INTO Spectateur VALUES (328,1);
+INSERT INTO Spectateur VALUES (73,1);
+INSERT INTO Spectateur VALUES (585,1);
+INSERT INTO Spectateur VALUES (80,1);
+INSERT INTO Spectateur VALUES (603,1);
+INSERT INTO Spectateur VALUES (606,1);
+INSERT INTO Spectateur VALUES (610,1);
+INSERT INTO Spectateur VALUES (100,1);
+INSERT INTO Spectateur VALUES (872,1);
+INSERT INTO Spectateur VALUES (618,1);
+INSERT INTO Spectateur VALUES (622,1);
+INSERT INTO Spectateur VALUES (623,1);*/
+INSERT INTO Spectateur VALUES (630,1);
+INSERT INTO Spectateur VALUES (890,1);
+INSERT INTO Spectateur VALUES (892,1);
+INSERT INTO Spectateur VALUES (389,1);
+INSERT INTO Spectateur VALUES (396,1);
+INSERT INTO Spectateur VALUES (398,1);
+INSERT INTO Spectateur VALUES (911,1);
+INSERT INTO Spectateur VALUES (142,1);
+INSERT INTO Spectateur VALUES (144,1);
+INSERT INTO Spectateur VALUES (660,1);
+INSERT INTO Spectateur VALUES (150,1);
+INSERT INTO Spectateur VALUES (663,1);
+INSERT INTO Spectateur VALUES (665,1);
+INSERT INTO Spectateur VALUES (670,1);
+INSERT INTO Spectateur VALUES (161,1);
+INSERT INTO Spectateur VALUES (675,1);
+INSERT INTO Spectateur VALUES (420,1);
+INSERT INTO Spectateur VALUES (676,1);
+INSERT INTO Spectateur VALUES (419,1);
+INSERT INTO Spectateur VALUES (932,1);
+INSERT INTO Spectateur VALUES (168,1);
+INSERT INTO Spectateur VALUES (426,1);
+INSERT INTO Spectateur VALUES (682,1);
+INSERT INTO Spectateur VALUES (684,1);
+INSERT INTO Spectateur VALUES (685,1);
+INSERT INTO Spectateur VALUES (428,1);
+INSERT INTO Spectateur VALUES (174,1);
+INSERT INTO Spectateur VALUES (688,1);
+INSERT INTO Spectateur VALUES (689,1);
+INSERT INTO Spectateur VALUES (176,1);
+INSERT INTO Spectateur VALUES (440,1);
+INSERT INTO Spectateur VALUES (965,1);
+INSERT INTO Spectateur VALUES (201,1);
+INSERT INTO Spectateur VALUES (459,1);
+INSERT INTO Spectateur VALUES (461,1);
+INSERT INTO Spectateur VALUES (465,1);
+INSERT INTO Spectateur VALUES (212,1);
+INSERT INTO Spectateur VALUES (471,1);
+INSERT INTO Spectateur VALUES (728,1);
+INSERT INTO Spectateur VALUES (217,1);
+INSERT INTO Spectateur VALUES (473,1);
+INSERT INTO Spectateur VALUES (474,1);
+INSERT INTO Spectateur VALUES (987,1);
+INSERT INTO Spectateur VALUES (221,1);
+INSERT INTO Spectateur VALUES (734,1);
+INSERT INTO Spectateur VALUES (993,1);
+INSERT INTO Spectateur VALUES (737,1);
+INSERT INTO Spectateur VALUES (738,1);
+INSERT INTO Spectateur VALUES (995,1);
+INSERT INTO Spectateur VALUES (229,1);
+INSERT INTO Spectateur VALUES (232,1);
+INSERT INTO Spectateur VALUES (235,1);
+INSERT INTO Spectateur VALUES (494,1);
+INSERT INTO Spectateur VALUES (495,1);
+INSERT INTO Spectateur VALUES (752,1);
+INSERT INTO Spectateur VALUES (763,1);
+
+-- 3 incrits à la compétition 12 (Ball Busters)
+
+INSERT INTO Spectateur VALUES (911,12);
+INSERT INTO Spectateur VALUES (859,12);
+INSERT INTO Spectateur VALUES (615,12);
+
+-- O inscrits  la compétition 21 (Ball Busters)
 
