@@ -67,11 +67,10 @@ WHERE bArbitre=1) AS salaires_arbitre;
 
 -- Q6) Salaire moyen minimum des gymnase
 -- Alors la, va falloir m'expliquer c'est quoi le salaire moyen min d'un gymnase
-SELECT NomGymnase, AVG(salaireHoraireMini) AS salaire_moyen_gymnase
-FROM Role AS r
-JOIN Personne AS p ON p.NumPersonne=r.NumPersonne
-JOIN Gymnase AS g ON g.NumGymnase=r.NumGymnase
-GROUP BY NumGymnase, NomGymnase;
+-- Somme de tous les salaires divisée par le nombre de gymnase
+SELECT 
+(SELECT SUM(p.salaireHoraireMini) FROM Role AS r JOIN Personne AS p ON p.NumPersonne=r.NumPersonne WHERE bArbitre=1 or bOrga=1)
+/(SELECT COUNT(*)FROM Gymnase);
 
 -- Q7) Les couples (sport, gymnase) possibles
 SELECT NomSport, NomGymnase
