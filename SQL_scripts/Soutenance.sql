@@ -102,7 +102,7 @@ WHERE NumCompetition = 1 or NumCompetition = 12;
 -- Afficher les competitions dispo pour un sport
 --Exemple : Basketball
 --Problème : ne prend pas en compte les compétitions sans spectateurs
-SELECT c.NomCompetition, c.DateCompetition, COALESCE(COUNT(s.NumPersonne)) AS nb_spectateurs, COALESCE(COUNT(r.NumPersonne)) AS nb_sportifs_et_autres, g.capaciteMaxGymnase, g.NomGymnase
+SELECT c.NomCompetition, c.DateCompetition, COALESCE(COUNT(DISTINCT s.NumPersonne)) AS nb_spectateurs, COALESCE(COUNT(DISTINCT r.NumPersonne)) AS nb_sportifs_et_autres, g.capaciteMaxGymnase, g.NomGymnase
 FROM Competition AS c
 JOIN SportGymnase AS sg ON sg.NumGymnase = c.NumGymnase AND sg.NumSport = c.NumSport
 JOIN Sport AS sp ON sg.NumSport = sp.NumSport
