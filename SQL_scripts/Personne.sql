@@ -920,7 +920,7 @@ INSERT INTO Personne VALUES (919, 'Beaudouin', 'Saber', 1977, '0757228441');
 INSERT INTO Personne VALUES (920, 'Hébert', 'Manville', 1970, '0706752120');
 INSERT INTO Personne VALUES (921, 'Quiron', 'Caroline', 1981, '0743813619');
 INSERT INTO Personne VALUES (922, 'Fournier', 'Dreux', 1941, '0715180545');
-INSERT INTO Personne VALUES (923, 'Rancourt', '"La Roux"', 1963, '0745160055');
+INSERT INTO Personne VALUES (923, 'Rancourt', 'Louis', 1963, '0745160055');
 INSERT INTO Personne VALUES (924, 'Couet', 'Isaac', 1955, '0647677519');
 INSERT INTO Personne VALUES (925, 'Fresne', 'Gradasso', 1992, '0740126555');
 INSERT INTO Personne VALUES (926, 'Boutot', 'Pansy', 1944, '0751958943');
