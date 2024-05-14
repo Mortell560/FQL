@@ -3,7 +3,7 @@ Festival SQL project for school
 
 DBMS: postgresql
 
-### To connect to the SGBD (the university one)
+### To connect to the DBMS (the university one)
 ```shell
 ssh surname.name@sshX.pgip.universite-paris-saclay.fr
 # Enter your password: 
