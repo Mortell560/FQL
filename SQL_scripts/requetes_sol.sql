@@ -5,10 +5,21 @@ JOIN Personne AS P ON P.NumPersonne=R.NumPersonne
 WHERE bSportif=1;
 
 -- Q2) Liste des sportifs qui ne sont ni organisateur ni arbitre
+/*
 SELECT NomPersonne AS Nom, PrenomPersonne AS Prenom 
 FROM Role AS R
 JOIN Personne AS P ON P.NumPersonne=R.NumPersonne
 WHERE bSportif=1 AND bArbitre=0 AND bOrga=0;
+*/
+(SELECT NomPersonne AS Nom, PrenomPersonne AS Prenom 
+FROM Role AS R
+JOIN Personne AS P ON P.NumPersonne=R.NumPersonne
+WHERE bSportif=1)
+except
+(SELECT NomPersonne AS Nom, PrenomPersonne AS Prenom 
+FROM Role AS R
+JOIN Personne AS P ON P.NumPersonne=R.NumPersonne
+WHERE bArbitre=1 or bOrga=1);
 
 -- Q3) Nombre de competition pour le sport 115458
 SELECT COUNT(*) AS nb_competitions
