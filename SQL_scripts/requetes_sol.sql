@@ -96,7 +96,6 @@ JOIN Sport AS S ON S.NumSport=SG.NumSport;
 --FROM Competition AS c
 --JOIN SportGymnase AS sg ON sg.NumSport=c.NumSport
 --JOIN Gymnase AS g ON g.NumGymnase=sg.NumGymnase;
-
 SELECT DISTINCT NomSport, NomGymnase
 FROM SportGymnase
 JOIN Sport ON SportGymnase.NumSport <> Sport.NumSport
@@ -118,7 +117,6 @@ SELECT SUM(salaireHoraireMini) AS cout_encadrement
 FROM Role AS r
 JOIN Personne AS p ON p.NumPersonne=r.NumPersonne
 JOIN Competition AS c ON c.NumCompetition=r.NumCompetition
-JOIN SportCompetition AS sc ON sc.NumCompetition=r.NumCompetition
-JOIN SportGymnase AS sg ON sg.NumSport=sc.NumSport
-WHERE r.bArbitre=1 OR r.bOrga=1 AND r.NumGymnase=123 AND sc.NumSport=115458;
+JOIN SportGymnase AS sg ON sg.NumSport=c.NumSport
+WHERE c.NumGymnase=123 AND c.NumSport=115458 AND (bArbitre = 1 OR bOrga = 1);
 
