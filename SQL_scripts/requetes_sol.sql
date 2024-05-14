@@ -68,9 +68,18 @@ WHERE bArbitre=1) AS salaires_arbitre;
 -- Q6) Salaire moyen minimum des gymnase
 -- Alors la, va falloir m'expliquer c'est quoi le salaire moyen min d'un gymnase
 -- Somme de tous les salaires divisée par le nombre de gymnase
-SELECT 
-(SELECT SUM(p.salaireHoraireMini) FROM Role AS r JOIN Personne AS p ON p.NumPersonne=r.NumPersonne WHERE bArbitre=1 or bOrga=1)
-/(SELECT COUNT(*)FROM Gymnase);
+
+--SELECT 
+--(SELECT SUM(p.salaireHoraireMini) FROM Role AS r JOIN Personne AS p ON p.NumPersonne=r.NumPersonne WHERE bArbitre=1 or bOrga=1) /COUNT(*) AS SalaireGymnase
+--FROM Gymnase;
+
+SELECT g.NomGymnase, SUM(salaireHoraireMini)/COUNT(*) AS salaireGymnasee
+FROM Role AS r
+JOIN Personne AS p ON p.NumPersonne = r.NumPersonne
+JOIN Competition AS c ON c.NumCompetition = r.NumCompetition
+JOIN Gymnase AS g ON g.NumGymnase = c.NumGymnase
+WHERE r.bArbitre = 1 OR r.bOrga = 1
+GROUP BY c.NumGymnase, g.NomGymnase;
 
 -- Q7) Les couples (sport, gymnase) possibles
 SELECT NomSport, NomGymnase
@@ -79,14 +88,24 @@ JOIN Gymnase AS G ON G.NumGymnase=SG.NumGymnase
 JOIN Sport AS S ON S.NumSport=SG.NumSport;
 
 -- Q8) Les competitions et les gymnase qui ne peuvent pas les recevoir
-SELECT NomGymnase
-FROM SportGymnase AS sg
-JOIN Gymnase AS g ON g.NumGymnase=sg.NumGymnase
-EXCEPT
-SELECT NomGymnase
-FROM Competition AS c
-JOIN SportGymnase AS sg ON sg.NumSport=c.NumSport
-JOIN Gymnase AS g ON g.NumGymnase=sg.NumGymnase;
+--SELECT NomGymnase
+--FROM SportGymnase AS sg
+--JOIN Gymnase AS g ON g.NumGymnase=sg.NumGymnase
+--EXCEPT
+--SELECT NomGymnase
+--FROM Competition AS c
+--JOIN SportGymnase AS sg ON sg.NumSport=c.NumSport
+--JOIN Gymnase AS g ON g.NumGymnase=sg.NumGymnase;
+
+SELECT DISTINCT NomSport, NomGymnase
+FROM SportGymnase
+JOIN Sport ON SportGymnase.NumSport <> Sport.NumSport
+JOIN Gymnase ON SportGymnase.NumGymnase <> Gymnase.NumGymnase
+EXCEPT 
+SELECT NomSport, NomGymnase
+FROM SportGymnase
+JOIN Sport ON SportGymnase.NumSport = Sport.NumSport
+JOIN Gymnase ON SportGymnase.NumGymnase = Gymnase.NumGymnase;
 
 -- Q9) Capacité totale en nombre de personnes si tous les gymnase sont utilisés en même temps
 SELECT SUM(capaciteMaxGymnase) AS max_cap
