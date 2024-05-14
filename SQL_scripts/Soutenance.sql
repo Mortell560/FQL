@@ -64,20 +64,20 @@ WHERE bOrga = 1;
 
 --Tout en une ligne, oui c'est moche mais bon
 
-SELECT (
-    SELECT COUNT(*) * 30  
-    FROM Spectateur
-    ) + (
-        SELECT COUNT(*) * 30
-        FROM Role 
-        WHERE bSportif = 1) - (
-                              SELECT COUNT(*)*12*2 
-                              FROM Role 
-                              WHERE bArbitre = 1) - (
-                                                     SELECT COUNT(*)*20*2 
-                                                     FROM Role
-                                                     WHERE bOrga = 1)
-AS bilan_financier;
+--SELECT (
+--    SELECT COUNT(*) * 30  
+--    FROM Spectateur
+--    ) + (
+--        SELECT COUNT(*) * 30
+--        FROM Role 
+--        WHERE bSportif = 1) - (
+--                              SELECT COUNT(*)*12*2 
+--                              FROM Role 
+--                              WHERE bArbitre = 1) - (
+--                                                     SELECT COUNT(*)*20*2 
+--                                                     FROM Role
+--                                                     WHERE bOrga = 1)
+--AS bilan_financier;
 
 -- horaire des compèt 1 et 12
 SELECT DateCompetition
@@ -103,15 +103,17 @@ WHERE NumCompetition = 1 or NumCompetition = 12;
 --Exemple : Basketball
 --Problème : ne prend pas en compte les compétitions sans spectateurs
 
-SELECT NomCompetition, DateCompetition, COUNT(DISTINCT Spectateur.NumPersonne), COUNT(DISTINCT Role.NumPersonne), Gymnase.capaciteMaxGymnase
-FROM Competition
-JOIN Sport ON Competition.NumSport = Sport.NumSport
-JOIN Role ON Competition.NumCompetition = Role.NumCompetition
-JOIN Spectateur ON Spectateur.NumCompetition = Competition.NumCompetition
-JOIN Gymnase ON Gymnase.NumGymnase = Competition.NumGymnase
-WHERE NomSport = 'Basketball'
-GROUP BY Competition.NumCompetition, Gymnase.capaciteMaxGymnase
-HAVING COUNT(DISTINCT Spectateur.NumPersonne) + COUNT(DISTINCT Role.NumPersonne) < Gymnase.capaciteMaxGymnase;
+SELECT c.NomCompetition, c.DateCompetition, COUNT(s.NumPersonne) AS nb_spectateurs, COUNT(r.NumPersonne) AS nb_sportifs_et_autres, g.capaciteMaxGymnase, g.NomGymnase
+FROM Competition AS c
+JOIN SportGymnase AS sg ON sg.NumGymnase = c.NumGymnase AND sg.NumSport = c.NumSport
+JOIN Sport AS sp ON sg.NumSport = sp.NumSport
+JOIN Role AS r ON c.NumCompetition = r.NumCompetition
+JOIN Spectateur AS s ON s.NumCompetition = c.NumCompetition
+JOIN Gymnase AS g ON g.NumGymnase = sg.NumGymnase
+WHERE sp.NomSport LIKE 'Basketball'
+GROUP BY c.NumCompetition, c.NomCompetition
+HAVING COUNT((SELECT NumPersonne FROM Spectateur UNION SELECT NumPersonne FROM Role WHERE Role.NumCompetition = c.NumCompetition AND s.NumCompetition = c.NumCompetition)
+) < g.capaciteMaxGymnase;
 
 
 
