@@ -60,9 +60,10 @@ WHERE AGE(EndDate, StartDate) <= '2 hour';
 
 -- Q5) Salaire moyen minimum des arbitre
 SELECT AVG(salaireHoraireMini) AS salaire_moyen_arbitre
+FROM(SELECT distinct R.NumPersonne, salaireHoraireMini
 FROM Role AS R
 JOIN Personne AS P ON P.NumPersonne=R.NumPersonne
-WHERE bArbitre=1;
+WHERE bArbitre=1) AS salaires_arbitre;
 
 -- Q6) Salaire moyen minimum des gymnase
 -- Alors la, va falloir m'expliquer c'est quoi le salaire moyen min d'un gymnase
