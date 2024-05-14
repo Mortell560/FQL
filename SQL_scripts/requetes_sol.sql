@@ -23,10 +23,11 @@ WHERE bArbitre=1 or bOrga=1);
 
 -- Q3) Nombre de competition pour le sport 115458
 SELECT COUNT(*) AS nb_competitions
-FROM SportCompetition
+FROM Competition
 WHERE NumSport=115458;
 
 -- Q4) Duree max pour un sportif qui assiste à toutes les compèt
+
 SELECT SUM(DureeCompetition) AS duree_max
 FROM Competition;
 
