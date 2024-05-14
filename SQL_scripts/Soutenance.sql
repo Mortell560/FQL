@@ -56,13 +56,27 @@ SELECT COUNT(*) * 30 AS argent_rentrant FROM Spectateur;
 SELECT COUNT(*) * 30 AS argent_rentrant_sportif FROM Role
 WHERE bSportif = 1;
 
-SELECT COUNT(*)*12* c.DureeCompetition/60 AS argent_sortant_arbitre FROM Role AS r
-JOIN Competition AS c ON c.NumCompetition = r.NumCompetition
-WHERE bArbitre = 1;
 
-SELECT COUNT(*)*20* c.DureeCompetition/60 AS argent_sortant_organisateur FROM Role
+
+-- Si on veut la somme pour les deux requetes suivantes il suffit de mettre ça dans une subrequest
+--SELECT COUNT(*)*12* c.DureeCompetition/60 AS argent_sortant_arbitre FROM Role AS r
+--JOIN Competition AS c ON c.NumCompetition = r.NumCompetition
+--WHERE bArbitre = 1;
+SELECT c.NomCompetition, COUNT(r.NumPersonne) * 12 * c.DureeCompetition/60 AS argent_sortant_arbitre
+FROM Role AS r
 JOIN Competition AS c ON c.NumCompetition = r.NumCompetition
-WHERE bOrga = 1;
+WHERE bArbitre = 1
+GROUP BY c.NumCompetition, c.NomCompetition;
+
+
+--SELECT COUNT(*)*20* c.DureeCompetition/60 AS argent_sortant_organisateur FROM Role
+--JOIN Competition AS c ON c.NumCompetition = r.NumCompetition
+--WHERE bOrga = 1;
+SELECT c.NomCompetition, COUNT(r.NumPersonne) * 20 * c.DureeCompetition/60 AS argent_sortant_arbitre
+FROM Role AS r
+JOIN Competition AS c ON c.NumCompetition = r.NumCompetition
+WHERE bOrga = 1
+GROUP BY c.NumCompetition, c.NomCompetition;
 
 --Tout en une ligne, oui c'est moche mais bon
 
