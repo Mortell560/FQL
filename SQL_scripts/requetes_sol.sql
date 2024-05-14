@@ -28,11 +28,17 @@ WHERE NumSport=115458;
 
 -- Q4) Duree max pour un sportif qui assiste à toutes les compèt
 
+-- Somme de la durée de toute de les compétitions
 SELECT SUM(DureeCompetition) AS duree_max
+FROM Competition;
+
+-- Cas où on ne compte pas les sports simultanés (+ une compétition ne commence et ne finit pas quand une compétition est en cours)
+SELECT COUNT(Distinct DateCompetition)*120 AS duree_totale
 FROM Competition;
 
 -- Sol avec overlap Q4
 -- Utilisable en psql uniquement
+/*
 WITH cte AS (
   SELECT DateCompetition FROM Competition
   UNION
@@ -45,6 +51,7 @@ cte_fin AS (
 SELECT SUM(AGE(EndDate, StartDate)) + COUNT(*) * INTERVAL '1 minute' AS duree_totale -- On compense les minutes retirees pour calculer les intervales de temps
 FROM cte_fin
 WHERE EndDate IS NOT NULL;
+*/
 --SELECT SUM(DureeCompetition)
 --FROM cte_fin AS cf CROSS APPLY (Competition AS c)
 --WHERE cf.EndDate IS NOT NULL;
