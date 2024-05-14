@@ -1,5 +1,5 @@
 -- Q1) Liste des sportifs
-SELECT NomPersonne AS Nom, PrenomPersonne AS Prenom
+SELECT distinct R.NumPersonne AS id, NomPersonne AS Nom, PrenomPersonne AS Prenom
 FROM Role AS R
 JOIN Personne AS P ON P.NumPersonne=R.NumPersonne
 WHERE bSportif=1;
