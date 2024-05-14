@@ -1,21 +1,21 @@
--- Q1
+-- Q1) Liste des sportifs
 SELECT NomPersonne AS Nom, PrenomPersonne AS Prenom
 FROM Role AS R
 JOIN Personne AS P ON P.NumPersonne=R.NumPersonne
 WHERE bSportif=1;
 
--- Q2
+-- Q2) Liste des sportifs qui ne sont ni organisateur ni arbitre
 SELECT NomPersonne AS Nom, PrenomPersonne AS Prenom 
 FROM Role AS R
 JOIN Personne AS P ON P.NumPersonne=R.NumPersonne
 WHERE bSportif=1 AND bArbitre=0 AND bOrga=0;
 
--- Q3
+-- Q3) Nombre de competition pour le sport 115458
 SELECT COUNT(*) AS nb_competitions
 FROM SportCompetition
 WHERE NumSport=115458;
 
--- Q4
+-- Q4) Duree max pour un sportif qui assiste à toutes les compèt
 SELECT SUM(DureeCompetition) AS duree_max
 FROM Competition;
 
@@ -39,13 +39,13 @@ WHERE EndDate IS NOT NULL;
 --AND cf.StartDate BETWEEN c.DateCompetition AND (c.DateCompetition + c.DureeCompetition * INTERVAL '1 minute')
 --GROUP BY c.NumCompetitio;
 
--- Q5
+-- Q5) Salaire moyen minimum des arbitre
 SELECT AVG(salaireHoraireMini) AS salaire_moyen_arbitre
 FROM Role AS R
 JOIN Personne AS P ON P.NumPersonne=R.NumPersonne
 WHERE bArbitre=1;
 
--- Q6
+-- Q6) Salaire moyen minimum des gymnase
 -- Alors la, va falloir m'expliquer c'est quoi le salaire moyen min d'un gymnase
 SELECT NomGymnase, AVG(salaireHoraireMini) AS salaire_moyen_gymnase
 FROM Role AS r
@@ -53,13 +53,13 @@ JOIN Personne AS p ON p.NumPersonne=r.NumPersonne
 JOIN Gymnase AS g ON g.NumGymnase=r.NumGymnase
 GROUP BY NumGymnase, NomGymnase;
 
--- Q7
+-- Q7) Les couples (sport, gymnase) possibles
 SELECT NomSport, NomGymnase
 FROM SportGymnase AS SG
 JOIN Gymnase AS G ON G.NumGymnase=SG.NumGymnase
 JOIN Sport AS S ON S.NumSport=SG.NumSport;
 
--- Q8
+-- Q8) Les competitions et les gymnase qui ne peuvent pas les recevoir
 SELECT NomGymnase
 FROM SportGymnase AS sg
 JOIN Gymnase AS g ON g.NumGymnase=sg.NumGymnase
@@ -69,12 +69,12 @@ FROM SportCompetition AS sc
 JOIN SportGymnase AS sg ON sg.NumSport=sc.NumSport
 JOIN Gymnase AS g ON g.NumGymnase=sg.NumGymnase;
 
--- Q9
+-- Q9) Capacité totale en nombre de personnes si tous les gymnase sont utilisés en même temps
 SELECT SUM(capaciteMaxGymnase) AS max_cap
 FROM Gymnase
 WHERE adresseGymnase LIKE '%Mourenx%';
 
--- Q10
+-- Q10) Coût de l'encadrement du sport 115458 s'il y a eu le nombre max de sportifs et dans le gymnase 123
 -- petit doute sur celle ci
 SELECT SUM(salaireHoraireMini) AS cout_encadrement
 FROM Role AS r
