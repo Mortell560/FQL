@@ -173,7 +173,7 @@ INSERT INTO Role VALUES (21,8,0,1,0);
 INSERT INTO Role VALUES (513, 8, 1, 0, 0);
 INSERT INTO Role VALUES (518, 8, 1, 0, 0);
 
---compet 9 : 2 arbitres | 5 sportifs | Places restantes : 113  (le 25/06 à 8h) ATTENTION, DANS LE MÊME GYMNASE + MÊME DATE QUE LA COMPET 20
+--compet 9 : 2 arbitres | 5 sportifs | Places restantes : 113  (le 25/06 à 8h) 
 INSERT INTO Role VALUES (1,9,0,1,1);
 
 INSERT INTO Role VALUES (22,9,0,1,0);
@@ -475,7 +475,7 @@ INSERT INTO Role VALUES (187, 19, 1, 0, 0);
 INSERT INTO Role VALUES (762, 19, 1, 0, 0);
 INSERT INTO Role VALUES (573, 19, 1, 0, 0);
 
---compet 20 : 2 arbitres | 5 sportifs | Places restantes : 113  (le 25/06 à 8h) ATTENTION, DANS LE MÊME GYMNASE + MÊME DATE QUE LA COMPET 9
+--compet 20 : 2 arbitres | 5 sportifs | Places restantes : 73 (le 25/06 à 8h) 
 INSERT INTO Role VALUES (1,20,0,1,1);
 
 INSERT INTO Role VALUES (20,20,0,1,0);
@@ -487,11 +487,13 @@ INSERT INTO Role VALUES (360, 20, 1, 0, 0);
 INSERT INTO Role VALUES (201, 20, 1, 0, 0);
 
 --compet 21 : 4 arbitres | 32 sportifs | Places restantes : 44  (le 24/06 à 8h)
+--Pour suivre la 2e étapes du mail, sera identique à la compet 1 dans un autre gymnase, jour et horaire
+--Aucun spectateur !!!!
 INSERT INTO Role VALUES (1,21,0,1,1);
 
-INSERT INTO Role VALUES (21,21,0,1,0);
-INSERT INTO Role VALUES (22,21,0,1,0);
-INSERT INTO Role VALUES (27,21,0,1,0);
+INSERT INTO Role VALUES (4,21,0,1,0);
+INSERT INTO Role VALUES (5,21,0,1,0);
+INSERT INTO Role VALUES (8,21,0,1,0);
 
 INSERT INTO Role VALUES (861, 21, 1, 0, 0);
 INSERT INTO Role VALUES (317, 21, 1, 0, 0);

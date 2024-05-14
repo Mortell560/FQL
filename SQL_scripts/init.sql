@@ -57,8 +57,8 @@ CREATE TABLE Competition (
   besoin_min_sportifs INT NOT NULL,
   besoin_min_arbitre INT NOT NULL,
   nb_Max_sportif_par_arbitre INT NOT NULL,
-  NumGymnase BIGINT NOT NULL,
   NumSport BIGINT NOT NULL,
+  NumGymnase BIGINT NOT NULL,
   FOREIGN KEY(NumChef) REFERENCES Personne(NumPersonne),
   FOREIGN KEY(NumGymnase, NumSport) REFERENCES SportGymnase(NumGymnase, NumSport)
 );

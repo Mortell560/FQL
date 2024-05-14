@@ -1,4 +1,5 @@
 -- 92 incrit à la compétion 1 (Ball Busters)
+-- Il n'y a que 56 places avec les sportifs
 
 INSERT INTO Spectateur VALUES (5,1);
 INSERT INTO Spectateur VALUES (520,1);
