@@ -84,8 +84,8 @@ FROM SportGymnase AS sg
 JOIN Gymnase AS g ON g.NumGymnase=sg.NumGymnase
 EXCEPT
 SELECT NomGymnase
-FROM SportCompetition AS sc
-JOIN SportGymnase AS sg ON sg.NumSport=sc.NumSport
+FROM Competition AS c
+JOIN SportGymnase AS sg ON sg.NumSport=c.NumSport
 JOIN Gymnase AS g ON g.NumGymnase=sg.NumGymnase;
 
 -- Q9) Capacité totale en nombre de personnes si tous les gymnase sont utilisés en même temps
