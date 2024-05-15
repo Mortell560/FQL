@@ -96,7 +96,7 @@ JOIN Sport AS S ON S.NumSport=SG.NumSport;
 --FROM Competition AS c
 --JOIN SportGymnase AS sg ON sg.NumSport=c.NumSport
 --JOIN Gymnase AS g ON g.NumGymnase=sg.NumGymnase;
-SELECT DISTINCT NomSport, NomGymnase
+SELECT NomSport, NomGymnase
 FROM SportGymnase
 JOIN Sport ON SportGymnase.NumSport <> Sport.NumSport
 JOIN Gymnase ON SportGymnase.NumGymnase <> Gymnase.NumGymnase

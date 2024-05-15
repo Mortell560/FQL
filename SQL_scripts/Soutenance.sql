@@ -132,8 +132,8 @@ LEFT JOIN Role AS r ON c.NumCompetition = r.NumCompetition
 LEFT JOIN Spectateur AS s ON s.NumCompetition = c.NumCompetition
 JOIN Gymnase AS g ON g.NumGymnase = sg.NumGymnase
 WHERE sp.NomSport LIKE 'Basketball'
-GROUP BY c.NumCompetition, c.NomCompetition, g.capaciteMaxGymnase, g.NomGymnase;
-
+GROUP BY c.NumCompetition, c.NomCompetition, g.capaciteMaxGymnase, g.NomGymnase
+HAVING COALESCE(COUNT(DISTINCT s.NumPersonne)) + COALESCE(COUNT(DISTINCT r.NumPersonne)) < g.capaciteMaxGymnase;
 
 --COUNT(DISTINCT Spectateur.NumPersonne),
 
