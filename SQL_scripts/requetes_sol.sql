@@ -59,11 +59,17 @@ WHERE AGE(EndDate, StartDate) <= '2 hour';
 --GROUP BY c.NumCompetitio;
 
 -- Q5) Salaire moyen minimum des arbitre
-SELECT AVG(salaireHoraireMini) AS salaire_moyen_arbitre
-FROM(SELECT distinct R.NumPersonne, salaireHoraireMini
+
+-- Pas de distinction entre les arbitres (même si c'est a même personne)
+SELECT AVG(salaireHoraireMini)
 FROM Role AS R
 JOIN Personne AS P ON P.NumPersonne=R.NumPersonne
-WHERE bArbitre=1) AS salaires_arbitre;
+WHERE bArbitre=1;
+
+-- Méthode triche
+SELECT *
+FROM Personne
+WHERE salaireHoraireMini=12 or salaireHoraireMini=32;
 
 -- Q6) Salaire moyen minimum des gymnases
 -- Alors la, va falloir m'expliquer c'est quoi le salaire moyen min d'un gymnase
@@ -88,14 +94,7 @@ JOIN Gymnase AS G ON G.NumGymnase=SG.NumGymnase
 JOIN Sport AS S ON S.NumSport=SG.NumSport;
 
 -- Q8) Les competitions et les gymnases qui ne peuvent pas les recevoir
---SELECT NomGymnase
---FROM SportGymnase AS sg
---JOIN Gymnase AS g ON g.NumGymnase=sg.NumGymnase
---EXCEPT
---SELECT NomGymnase
---FROM Competition AS c
---JOIN SportGymnase AS sg ON sg.NumSport=c.NumSport
---JOIN Gymnase AS g ON g.NumGymnase=sg.NumGymnase;
+
 SELECT NomSport, NomGymnase
 FROM SportGymnase
 JOIN Sport ON SportGymnase.NumSport <> Sport.NumSport
@@ -105,6 +104,8 @@ SELECT NomSport, NomGymnase
 FROM SportGymnase
 JOIN Sport ON SportGymnase.NumSport = Sport.NumSport
 JOIN Gymnase ON SportGymnase.NumGymnase = Gymnase.NumGymnase;
+
+-- Refaire la question par problème de compréhension
 
 -- Q9) Capacité totale en nombre de personnes si tous les gymnases sont utilisés en même temps
 SELECT SUM(capaciteMaxGymnase) AS max_cap
