@@ -38,11 +38,12 @@ INSERT INTO Role VALUES (150, 1, 1, 0, 0);
 INSERT INTO Role VALUES (704, 1, 1, 0, 0);
 INSERT INTO Role VALUES (558, 1, 1, 0, 0);
 
---compet 2 : 3 arbitres | 40 sportifs | Places restantes : 77 (le 20/06 à 8h)
+--compet 2 : 4 arbitres | 40 sportifs | Places restantes : 76 (le 20/06 à 8h)
 INSERT INTO Role VALUES (2,2,0,1,1);
 
 INSERT INTO Role VALUES (10,2,0,1,0);
 INSERT INTO Role VALUES (12,2,0,1,0);
+INSERT INTO Role VALUES (4,2,0,1,0);
 
 INSERT INTO Role VALUES (536, 2, 1, 0, 0);
 INSERT INTO Role VALUES (212, 2, 1, 0, 0);
