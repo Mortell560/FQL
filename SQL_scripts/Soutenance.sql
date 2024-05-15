@@ -51,12 +51,10 @@ ORDER BY freq;
 -- #####################################################################################################################################################
 
 -- infos financières
-SELECT COUNT(*) * 30 AS argent_rentrant FROM Spectateur;
+SELECT COUNT(*) * 30 AS argent_rentrant_spectateur FROM Spectateur;
 
 SELECT COUNT(*) * 30 AS argent_rentrant_sportif FROM Role
 WHERE bSportif = 1;
-
-
 
 -- Si on veut la somme pour les deux requetes suivantes il suffit de mettre ça dans une subrequest
 --SELECT COUNT(*)*12* c.DureeCompetition/60 AS argent_sortant_arbitre FROM Role AS r
@@ -72,28 +70,11 @@ GROUP BY c.NumCompetition, c.NomCompetition;
 --SELECT COUNT(*)*20* c.DureeCompetition/60 AS argent_sortant_organisateur FROM Role
 --JOIN Competition AS c ON c.NumCompetition = r.NumCompetition
 --WHERE bOrga = 1;
-SELECT c.NomCompetition, COUNT(r.NumPersonne) * 20 * c.DureeCompetition/60 AS argent_sortant_arbitre
+SELECT c.NomCompetition, COUNT(r.NumPersonne) * 20 * c.DureeCompetition/60 AS argent_sortant_organisateur
 FROM Role AS r
 JOIN Competition AS c ON c.NumCompetition = r.NumCompetition
 WHERE bOrga = 1
 GROUP BY c.NumCompetition, c.NomCompetition;
-
---Tout en une ligne, oui c'est moche mais bon
-
---SELECT (
---    SELECT COUNT(*) * 30  
---    FROM Spectateur
---    ) + (
---        SELECT COUNT(*) * 30
---        FROM Role 
---        WHERE bSportif = 1) - (
---                              SELECT COUNT(*)*12*2 
---                              FROM Role 
---                              WHERE bArbitre = 1) - (
---                                                     SELECT COUNT(*)*20*2 
---                                                     FROM Role
---                                                     WHERE bOrga = 1)
---AS bilan_financier;
 
 -- horaire des compèt 1 et 12
 SELECT DateCompetition
@@ -106,7 +87,7 @@ WHERE NumCompetition = 1 or NumCompetition = 12;
 --- à faire...
 ---******************************************************
 
--- liste des personnels avec leurs données financières et le nom de leur employeur principal | "leurs données financières" i.e. leur salaire ? 
+-- Pour compèt 1 et 12 - liste des personnels avec leurs données financières et le nom de leur employeur principal
 -- Solution supposant le non-overlapping (Sinon faut utiliser les deux sous-requests de la question 4)
 SELECT p.NomPersonne, p.PrenomPersonne, c.DureeCompetition/60 * p.salaireHoraireMini AS salaire_du, pemp.NomPersonne AS NomEmployeur, pemp.PrenomPersonne AS PrenomEmployeur
 FROM Role AS r
@@ -115,12 +96,37 @@ JOIN Competition AS c ON c.NumCompetition = r.NumCompetition
 JOIN Personne AS pemp ON pemp.NumPersonne = p.NumEmployeurPrincipal;
 -- Ajouter un WHERE pour specifier la competition
 
--- liste des inscrits (sportifs) montant récolté par leurs inscriptions | déjà fait il me semble
+-- Pour compèt 1 et 12 - liste des inscrits (sportifs) montant récolté par leurs inscriptions | déjà fait il me semble
 -- nombre maximum d’argent récoltable en fonction de la capacité utile
 WITH personnes AS (SELECT NumCompetition, NumPersonne FROM Role WHERE bOrga=1 OR bArbitre=1 AND bSportif=0)
 SELECT (SUM(g.capaciteMaxGymnase)-COALESCE(COUNT(pe.NumPersonne)))*30 AS argent_recoltable FROM personnes AS pe
 LEFT JOIN Competition AS c ON c.NumCompetition = pe.NumCompetition
 LEFT JOIN Gymnase AS g ON g.NumGymnase = c.NumGymnase;
+
+-- Données financières de la compèt 21
+
+SELECT COUNT(*) * 30 AS argent_rentrant_spectateur FROM Spectateur
+WHERE NumCompetition=21;
+
+SELECT COUNT(*) * 30 AS argent_rentrant_sportif FROM Role
+WHERE bSportif = 1 AND NumCompetition=21;
+
+SELECT c.NomCompetition, COUNT(r.NumPersonne) * 12 * c.DureeCompetition/60 AS argent_sortant_arbitre
+FROM Role AS r
+JOIN Competition AS c ON c.NumCompetition = r.NumCompetition
+WHERE bArbitre = 1 AND c.NumCompetition=21
+GROUP BY c.NomCompetition, c.DureeCompetition;
+
+SELECT c.NomCompetition, COUNT(r.NumPersonne) * 20 * c.DureeCompetition/60 AS argent_sortant_organisateur
+FROM Role AS r
+JOIN Competition AS c ON c.NumCompetition = r.NumCompetition
+WHERE bOrga = 1 AND c.NumCompetition=21
+GROUP BY c.NomCompetition, c.DureeCompetition;
+
+-- Justifier les dépenses de nos mairies concernant le festival après ces dernières inscriptions
+
+
+
 
 -- Afficher les competitions dispo pour un sport
 --Exemple : Basketball
@@ -135,7 +141,7 @@ WHERE sp.NomSport LIKE 'Basketball'
 GROUP BY c.NumCompetition, c.NomCompetition, g.capaciteMaxGymnase, g.NomGymnase
 HAVING COALESCE(COUNT(DISTINCT s.NumPersonne)) + COALESCE(COUNT(DISTINCT r.NumPersonne)) < g.capaciteMaxGymnase;
 
---COUNT(DISTINCT Spectateur.NumPersonne),
+
 
 
 
