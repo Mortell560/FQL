@@ -101,3 +101,4 @@ INSERT INTO Spectateur VALUES (859,12);
 INSERT INTO Spectateur VALUES (615,12);
 
 -- O inscrits  la compétition 21 (Ball Busters)
+INSERT INTO Spectateur VALUES (1002, 13), (1003, 13);
