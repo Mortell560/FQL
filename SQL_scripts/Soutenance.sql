@@ -37,9 +37,9 @@ SELECT SUM(salaireHoraireMini) * 40 FROM Personne;
 
 --Ok la solution avec de la triche et des operateurs ensemblistes
 WITH personnes AS (SELECT NumCompetition, NumPersonne FROM Spectateur UNION SELECT NumCompetition, NumPersonne FROM Role)
-SELECT c.NomCompetition, COUNT(p.NumPersonne) AS freq FROM personnes AS p
+SELECT c.NomCompetition, COUNT(p.NumPersonne) AS freq, DateCompetition FROM personnes AS p
 JOIN Competition AS c ON c.NumCompetition = p.NumCompetition
-GROUP BY p.NumCompetition, c.NomCompetition
+GROUP BY p.NumCompetition, c.NomCompetition, c.DateCompetition
 ORDER BY freq;
 
 -- Pour export nos resultats de requetes dans des CSV tres jolis (c'est faux c'est pas joli)
