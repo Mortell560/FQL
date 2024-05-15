@@ -124,7 +124,7 @@ WHERE bOrga = 1 AND c.NumCompetition=21
 GROUP BY c.NomCompetition, c.DureeCompetition;
 
 -- Justifier les dépenses de nos mairies concernant le festival après ces dernières inscriptions
-
+-- Avec une compétition, on est riche. Point final
 
 
 
