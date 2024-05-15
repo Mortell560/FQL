@@ -112,7 +112,6 @@ FROM Gymnase
 WHERE adresseGymnase LIKE '%Mourenx%';
 
 -- Q10) Coût de l'encadrement du sport 115458 s'il y a eu le nombre max de sportifs et dans le gymnase 123
--- petit doute sur celle ci
 SELECT SUM(salaireHoraireMini) AS cout_encadrement
 FROM Role AS r
 JOIN Personne AS p ON p.NumPersonne=r.NumPersonne
