@@ -182,6 +182,23 @@ GROUP BY c.NumCompetition, c.NomCompetition, g.capaciteMaxGymnase, g.NomGymnase,
 HAVING COALESCE(COUNT(DISTINCT s.NumPersonne)) + COALESCE(COUNT(DISTINCT r.NumPersonne)) >= 5;
 
 
+-- Question 5
+SELECT c.NomCompetition, c.DateCompetition, COALESCE(COUNT(DISTINCT s.NumPersonne)) AS nb_spectateurs, COALESCE(COUNT(DISTINCT r.NumPersonne)) AS nb_sportifs_et_autres, g.capaciteMaxGymnase, g.NomGymnase
+FROM Competition AS c
+JOIN SportGymnase AS sg ON sg.NumGymnase = c.NumGymnase AND sg.NumSport = c.NumSport
+JOIN Sport AS sp ON sg.NumSport = sp.NumSport
+LEFT JOIN Role AS r ON c.NumCompetition = r.NumCompetition
+LEFT JOIN Spectateur AS s ON s.NumCompetition = c.NumCompetition
+JOIN Gymnase AS g ON g.NumGymnase = sg.NumGymnase
+WHERE sp.NomSport LIKE 'Basketball'
+GROUP BY c.NumCompetition, c.NomCompetition, g.capaciteMaxGymnase, g.NomGymnase
+HAVING COALESCE(COUNT(DISTINCT s.NumPersonne)) + COALESCE(COUNT(DISTINCT r.NumPersonne)) < g.capaciteMaxGymnase AND g.capaciteMaxGymnase - COALESCE(COUNT(DISTINCT s.NumPersonne)) + COALESCE(COUNT(DISTINCT r.NumPersonne)) >= 10;
+-- Ou
+SELECT * 
+FROM Gymnase 
+WHERE capaciteMaxGymnase > 10;
+
+
 
 
 
