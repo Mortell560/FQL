@@ -141,7 +141,19 @@ WHERE sp.NomSport LIKE 'Basketball'
 GROUP BY c.NumCompetition, c.NomCompetition, g.capaciteMaxGymnase, g.NomGymnase
 HAVING COALESCE(COUNT(DISTINCT s.NumPersonne)) + COALESCE(COUNT(DISTINCT r.NumPersonne)) < g.capaciteMaxGymnase;
 
+--Soutenance :
 
+--2)
+INSERT INTO Competition VALUES (22, 'Ball Busters', 120, '2024-06-27 08:00:00', 1, 32, 4, 8, 1, 43);)
+INSERT INTO Role VALUES (1,22,0,1,1);
+INSERT INTO Role VALUES (12,22,0,1,0);
+INSERT INTO Role VALUES (18,22,0,1,0);
+INSERT INTO Role VALUES (20,22,0,1,0);
+INSERT INTO Role VALUES (1001, 22, 1, 0, 0);
+INSERT INTO Role VALUES (1002, 22, 1, 0, 0);
+INSERT INTO Role VALUES (1003, 22, 1, 0, 0);
+
+SELECT * FROM Competition;
 
 
 
