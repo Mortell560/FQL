@@ -37,7 +37,7 @@ CREATE TABLE Gymnase(
 
 CREATE TABLE Sport (
   NumSport BIGINT PRIMARY KEY NOT NULL,
-  NomSport TEXT
+  NomSport TEXT NOT NULL
 );
 
 CREATE TABLE SportGymnase (
