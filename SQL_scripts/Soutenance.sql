@@ -155,6 +155,19 @@ INSERT INTO Role VALUES (1003, 22, 1, 0, 0);
 
 SELECT * FROM Competition WHERE NumCompetition = 22;
 
+--3)
+SELECT c.NumCompetition, c.NomCompetition
+FROM Spectateur AS s
+JOIN Competition AS c ON c.Numcompetition=s.NumCompetition
+WHERE NumPersonne=1003 /*petit fils*/
+
+INTERSECT
+
+SELECT c.NumCompetition, c.NomCompetition
+FROM Spectateur AS s
+JOIN Competition AS c ON c.Numcompetition=s.NumCompetition
+WHERE NumPersonne=1001; /*Bob*/
+
 --4)
 SELECT c.NomCompetition, c.DateCompetition, g.NomGymnase, p2.NomPersonne
 FROM Competition AS c
