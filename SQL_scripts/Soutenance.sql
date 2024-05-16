@@ -156,6 +156,9 @@ INSERT INTO Role VALUES (1003, 22, 1, 0, 0);
 SELECT * FROM Competition WHERE NumCompetition = 22;
 
 --3)
+
+-- Spectateurs
+
 SELECT c.NumCompetition, c.NomCompetition
 FROM Spectateur AS s
 JOIN Competition AS c ON c.Numcompetition=s.NumCompetition
@@ -166,6 +169,20 @@ INTERSECT
 SELECT c.NumCompetition, c.NomCompetition
 FROM Spectateur AS s
 JOIN Competition AS c ON c.Numcompetition=s.NumCompetition
+WHERE NumPersonne=1001; /*Bob*/
+
+-- Sportifs
+
+SELECT c.NumCompetition, c.NomCompetition
+FROM Role AS r
+JOIN Competition AS c ON c.Numcompetition=r.NumCompetition
+WHERE NumPersonne=1003 /*petit fils*/
+
+INTERSECT
+
+SELECT c.NumCompetition, c.NomCompetition
+FROM Role AS r
+JOIN Competition AS c ON c.Numcompetition=r.NumCompetition
 WHERE NumPersonne=1001; /*Bob*/
 
 --4)
