@@ -153,9 +153,20 @@ INSERT INTO Role VALUES (1001, 22, 1, 0, 0);
 INSERT INTO Role VALUES (1002, 22, 1, 0, 0);
 INSERT INTO Role VALUES (1003, 22, 1, 0, 0);
 
-SELECT * FROM Competition;
+SELECT * FROM Competition WHERE NumCompetition = 22;
 
-
+--4)
+SELECT c.NomCompetition, c.DateCompetition, g.NomGymnase, p2.NomPersonne
+FROM Competition AS c
+JOIN SportGymnase AS sg ON sg.NumGymnase = c.NumGymnase AND sg.NumSport = c.NumSport
+LEFT JOIN Role AS r ON c.NumCompetition = r.NumCompetition
+LEFT JOIN Spectateur AS s ON s.NumCompetition = c.NumCompetition
+JOIN Gymnase AS g ON g.NumGymnase = sg.NumGymnase
+JOIN Personne AS p ON p.NumPersonne=r.NumPersonne
+JOIN Personne AS p2 ON c.NumChef = p2.NumPersonne
+WHERE p.NomPersonne='Bob' AND p.PrenomPersonne = 'Mauranne'
+GROUP BY c.NumCompetition, c.NomCompetition, g.capaciteMaxGymnase, g.NomGymnase, p2.NomPersonne
+HAVING COALESCE(COUNT(DISTINCT s.NumPersonne)) + COALESCE(COUNT(DISTINCT r.NumPersonne)) >= 5;
 
 
 
